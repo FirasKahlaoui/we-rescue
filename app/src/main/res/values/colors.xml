@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Primary Colors -->
+    <color name="colorPrimary">#03C988</color>
+    <color name="colorHint">#05A8B7</color>
+    <!-- Base Color -->
+    <color name="colorBase">#17B1F3</color>
+
+    <!-- Text Color -->
+    <color name="textColor">#2B2B2B</color>
+
+    <!-- Accent Color -->
+    <color name="colorAccent">#5F5B5B</color>
+    <color name="colorAccentDark">#181E22</color>
+
+    <color name="white">#FFFFFF</color>
 </resources>

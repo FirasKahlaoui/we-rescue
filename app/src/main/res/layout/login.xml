@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="18dp"
+        android:src="@drawable/contact" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Let's Get You Login!"
+        android:textSize="25dp"
+        android:textColor="#000" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email"
+        android:textSize="18dp"
+        android:layout_gravity="left"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="22dp"
+        android:textColor="@color/textColor"
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/gradient_border"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="19dp"
+            android:background="@null"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:text="Enter your Email"
+            android:textColor="@color/colorHint"
+            android:textSize="12dp"
+            android:layout_marginTop="5dp"/>
+        <EditText
+            android:id="@+id/emailET"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:background="@null"
+            android:layout_marginTop="20dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="30dp"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            />
+
+
+
+    </RelativeLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Password"
+        android:textSize="18dp"
+        android:layout_gravity="left"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="22dp"
+        android:textColor="@color/textColor"
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/gradient_border"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="19dp"
+            android:background="@null"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:text="Enter Password"
+            android:textColor="@color/colorHint"
+            android:textSize="12dp"
+            android:layout_marginTop="5dp"/>
+        <EditText
+            android:id="@+id/passwordET"
+            android:layout_toStartOf="@id/pass_icon"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:background="@null"
+            android:layout_marginTop="20dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="30dp"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            />
+        <ImageView
+            android:id="@+id/pass_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:src="@drawable/show_pass"
+            android:adjustViewBounds="true"
+            android:layout_marginEnd="5dp"
+            />
+
+
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/btn_forgot_pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:text="Forgot Password ?"
+        android:textSize="15sp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="25dp"
+        android:textColor="@color/colorHint"
+
+        />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:textStyle="bold"
+        android:text="Login"
+        android:textColor="#fff"
+        android:textSize="18dp"
+        android:background="@drawable/btn_gradient"
+        android:layout_marginTop="0dp"
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="15dp">
+        <View
+            android:layout_toStartOf="@+id/orTxt"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/textColor"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="5dp"
+            android:layout_centerVertical="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="or continue with"
+            android:layout_centerInParent="true"
+            android:textSize="15dp"
+            android:id="@+id/orTxt"
+            android:textColor="@color/textColor" />
+        <View
+            android:layout_toEndOf="@+id/orTxt"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/textColor"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="20dp"
+            android:layout_centerVertical="true" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/btn_google"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/gray_button"
+        >
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="40dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/google"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign In with Google"
+            android:textSize="15dp"
+            android:textColor="@color/textColor"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="20dp"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="30dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Don't have an account ?"
+            android:textSize="15sp"
+            android:textColor="@color/textColor"
+            />
+        <TextView
+            android:id="@+id/btn_register"
+            android:layout_marginStart="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Register"
+            android:textSize="15sp"
+            android:textColor="@color/colorHint"
+            />
+    </LinearLayout>
+
+</LinearLayout>
