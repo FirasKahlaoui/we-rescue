@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "935306948164",
+    "project_id": "werescue-87152",
+    "storage_bucket": "werescue-87152.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:935306948164:android:d68565644fc73f17be5611",
+        "android_client_info": {
+          "package_name": "com.example.werescue"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "935306948164-jvup6ht7gvov0guse3lemkmltd6j6fnv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-xDAYusjWcQDh8y8HhvpcYh5YZpcVOiI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "935306948164-jvup6ht7gvov0guse3lemkmltd6j6fnv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
