@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:layout_marginBottom="15dp">
 
     <ImageView
         android:layout_width="70dp"
@@ -49,16 +50,17 @@
             android:textColor="@color/colorHint"
             android:textSize="12dp"
             android:layout_marginTop="5dp"/>
+
         <EditText
+            android:id="@+id/fullNameET"
             android:layout_width="match_parent"
             android:layout_height="36dp"
-            android:background="@null"
             android:layout_marginTop="20dp"
-            android:paddingStart="15dp"
-            android:paddingEnd="30dp"
+            android:background="@null"
             android:inputType="textEmailAddress"
             android:maxLines="1"
-            />
+            android:paddingStart="15dp"
+            android:paddingEnd="30dp" />
 
 
 
@@ -92,16 +94,17 @@
             android:textColor="@color/colorHint"
             android:textSize="12dp"
             android:layout_marginTop="5dp"/>
+
         <EditText
+            android:id="@+id/emailET"
             android:layout_width="match_parent"
             android:layout_height="36dp"
-            android:background="@null"
             android:layout_marginTop="20dp"
-            android:paddingStart="15dp"
-            android:paddingEnd="30dp"
+            android:background="@null"
             android:inputType="textEmailAddress"
             android:maxLines="1"
-            />
+            android:paddingStart="15dp"
+            android:paddingEnd="30dp" />
 
 
 
@@ -160,6 +163,15 @@
 
 
     </RelativeLayout>
+    <TextView
+        android:id="@+id/passwordErrorTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginTop="3dp"
+        android:textColor="@android:color/holo_red_dark"
+        android:visibility="gone" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
