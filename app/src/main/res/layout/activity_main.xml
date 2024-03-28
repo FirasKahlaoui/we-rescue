@@ -26,8 +26,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/bottomNavigationView"
-            android:layout_marginEnd="20dp"
             app:labelVisibilityMode="labeled"
+            app:itemTextColor="@color/colorPrimary"
+            app:itemIconTint="@color/colorPrimary"
             android:background="@android:color/transparent"
             app:menu="@menu/bottom_menu"/>
 
@@ -41,6 +42,6 @@
         app:layout_anchor="@+id/bottomAppBar"
         app:layout_anchorGravity="top|center"
         app:maxImageSize="40dp"
-        app:tint="@color/colorAccent" />
+        app:tint="@color/colorPrimary" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

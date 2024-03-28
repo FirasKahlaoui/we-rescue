@@ -1,3 +1,38 @@
 <resources>
-    <string name="app_name">werescue</string>
+    <string name="app_name">we rescue</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="category_array">
+        <item>Dog</item>
+        <item>Cat</item>
+        <item>Bird</item>
+        <item>Rabbit</item>
+        <!-- Add more categories as needed -->
+    </string-array>
+
+    <string-array name="gender_array">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+    <string-array name="age_array">
+        <item>Puppy/Kitten</item>
+        <item>Young</item>
+        <item>Adult</item>
+        <item>Senior</item>
+    </string-array>
+
+    <string-array name="size_array">
+        <item>Small</item>
+        <item>Medium</item>
+        <item>Large</item>
+        <item>Giant</item>
+    </string-array>
+
+    <string name="category_prompt">Pet Category</string>
+    <string name="gender_prompt">Gender (Optional)</string>
+    <string name="age_prompt">Age (Optional)</string>
+    <string name="size_prompt">Size (Optional)</string>
+    <string name="search">Search</string>
 </resources>

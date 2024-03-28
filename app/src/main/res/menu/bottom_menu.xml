@@ -6,7 +6,7 @@
         android:icon="@drawable/baseline_home_24"
         android:title="Home" />
     <item
-        android:id="@+id/dashboard"
+        android:id="@+id/search"
         android:icon="@drawable/baseline_search_24"
         android:title="Search" />
     <item
@@ -14,7 +14,7 @@
         android:title=""
         android:enabled="false"/>
     <item
-        android:id="@+id/notifications"
+        android:id="@+id/pets"
         android:icon="@drawable/baseline_pets_24"
         android:title="Pets" />
     <item
