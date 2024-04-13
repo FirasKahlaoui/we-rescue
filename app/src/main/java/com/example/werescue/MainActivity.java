@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.werescue.HomeFragment;
 import com.example.werescue.R;
@@ -17,38 +18,42 @@ public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    binding = ActivityMainBinding.inflate(getLayoutInflater());
+    setContentView(binding.getRoot());
 
-        replaceFragment(new HomeFragment());
-        binding.bottomNavigationView.setBackground(null);
+    replaceFragment(new HomeFragment());
+    binding.bottomNavigationView.setBackground(null);
 
-        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
+    binding.bottomNavigationView.setOnItemSelectedListener(item -> {
+        int id = item.getItemId();
 
-    int id = item.getItemId();
+        if (id == R.id.home) {
+            replaceFragment(new HomeFragment());
+        } else if (id == R.id.search) {
+            replaceFragment(new Search());
+        } else if (id == R.id.pets) {
+            replaceFragment(new PetsFragment());
+        } else if (id == R.id.profile) {
+            replaceFragment(new ProfileFragment());
+        }
 
-    if (id == R.id.home) {
-        replaceFragment(new HomeFragment());
-    } else if (id == R.id.search) {
-        replaceFragment(new Search());
-    } else if (id == R.id.pets) {
-        replaceFragment(new PetsFragment());
-    } else if (id == R.id.profile) {
-        replaceFragment(new ProfileFragment());
-    }
+        return true;
+    });
 
-            return true;
+    binding.addButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            replaceFragment(new UploadFragment());
+        }
+    });
+}
 
-});
-
-    }
-
-    private void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout, fragment);
-        fragmentTransaction.commit();
-    }
+void replaceFragment(Fragment fragment) {
+    FragmentManager fragmentManager = getSupportFragmentManager();
+    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+    fragmentTransaction.replace(R.id.frame_layout, fragment);
+    fragmentTransaction.commit();
+}
 }
