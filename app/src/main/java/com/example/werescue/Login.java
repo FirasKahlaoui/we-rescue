@@ -52,7 +52,14 @@ public class Login extends Activity {
         final TextView signUpBtn = findViewById(R.id.btn_register);
         final TextView googleLogin = findViewById(R.id.btn_google);
 
-        // ... rest of your code ...
+        signUpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start the Register activity
+                Intent intent = new Intent(Login.this, Sign_up.class);
+                startActivity(intent);
+            }
+        });
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,17 +67,17 @@ public class Login extends Activity {
                 String email = emailET.getText().toString();
                 String password = passwordET.getText().toString();
 
-                // ... rest of your code ...
+                if (email.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(Login.this, "Please enter your email and password", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                //sign in the user
                 mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
 
-                                    // Save the login state
                                     SharedPreferences.Editor editor = sharedPreferences.edit();
                                     editor.putBoolean("isLoggedIn", true);
                                     editor.apply();
@@ -80,7 +87,6 @@ public class Login extends Activity {
                                     startActivity(intent);
                                     finish();
                                 } else {
-                                    // If sign in fails, display a message to the user.
                                     Toast.makeText(Login.this, "Authentication failed", Toast.LENGTH_SHORT).show();
                                 }
                             }
