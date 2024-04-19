@@ -16,70 +16,225 @@
         android:padding="20dp"
         tools:context=".UploadActivity">
 
-        <TextView
+       <ImageView
+                android:layout_width="300dp"
+                android:layout_height="200dp"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/upload_img_border"
+                android:src="@drawable/upload_icon" />
+
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Upload Pet Image"
-            android:textSize="24sp"
-            android:textColor="@color/colorPrimary"
-            android:layout_gravity="center_horizontal"/>
-
-        <ImageView
-            android:id="@+id/uploadImage"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="25dp">
+            <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="30dp"
+            android:src="@drawable/male_icon"/>
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="150dp"
+                android:layout_marginEnd="30dp"
+                android:src="@drawable/female_icon"/>
+        </RelativeLayout>
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:src="@drawable/ic_launcher_background"
-            android:layout_height="200dp"
-            android:layout_marginTop="20dp"
-            android:scaleType="fitXY"/>
-
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/progressBar"
-            android:layout_gravity="center"
-            android:indeterminateTint="@color/colorPrimary"
-            android:visibility="invisible"/>
-
-        <LinearLayout
+            android:layout_height="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="20dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="Name"
+                android:layout_marginStart="20dp"
+                android:paddingTop="5dp"
+                android:textColor="@color/colorAccent"/>
+            <EditText
+                android:id="@+id/nameET"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginStart="120dp"
+                android:layout_marginEnd="20dp"
+                android:paddingStart="30dp"
+                android:layout_below="@id/nameET"
+                android:background="@null"
+                android:hint="Enter the name"
+                android:inputType="text"
+                android:textColor="@color/colorAccent"
+                android:textSize="15sp"/>
+        </RelativeLayout>
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp">
-
+            android:layout_height="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="20dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="Species"
+                android:layout_marginStart="20dp"
+                android:paddingTop="5dp"
+                android:textColor="@color/colorAccent"/>
             <EditText
+                android:id="@id/speciesET"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/petName"
-                android:padding="16dp"
-                android:hint="Name of the pet"/>
-
+                android:layout_height="30dp"
+                android:layout_marginStart="120dp"
+                android:layout_marginEnd="20dp"
+                android:paddingStart="30dp"
+                android:background="@null"
+                android:hint="Enter the species"
+                android:inputType="text"
+                android:textColor="@color/colorAccent"
+                android:textSize="15sp"
+                tools:ignore="DuplicateIds" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="20dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="Birthday"
+                android:layout_marginStart="20dp"
+                android:paddingTop="5dp"
+                android:textColor="@color/colorAccent"/>
             <EditText
+                android:id="@+id/birthdayET"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/petAge"
-                android:padding="16dp"
-                android:hint="Age of the pet"
-                android:inputType="number"/>
-
+                android:layout_height="30dp"
+                android:layout_marginStart="120dp"
+                android:layout_marginEnd="30dp"
+                android:paddingStart="30dp"
+                android:layout_below="@id/birthdayET"
+                android:background="@null"
+                android:hint="DD/MM/YYYY"
+                android:inputType="date"
+                android:textColor="@color/colorAccent"
+                android:textSize="15sp"/>
+            <ImageView
+                android:id="@+id/birthday_icon"
+                android:layout_width="20dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="280dp"
+                android:src="@drawable/calendar"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="20dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="Location"
+                android:layout_marginStart="20dp"
+                android:paddingTop="5dp"
+                android:textColor="@color/colorAccent"/>
             <EditText
+                android:id="@+id/locationET"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/petDescription"
-                android:padding="16dp"
-                android:hint="Description"/>
+                android:layout_height="30dp"
+                android:layout_marginStart="120dp"
+                android:layout_marginEnd="30dp"
+                android:paddingStart="30dp"
+                android:layout_below="@id/locationET"
+                android:background="@null"
+                android:hint="Enter the location"
+                android:inputType="text"
+                android:textColor="@color/colorAccent"
+                android:textSize="15sp"/>
+            <ImageView
+                android:id="@+id/location_icon"
+                android:layout_width="20dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="281dp"
+                android:src="@drawable/location"
+                />
+        </RelativeLayout>
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="20dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="Weight"
+                android:layout_marginStart="20dp"
+                android:paddingTop="5dp"
+                android:textColor="@color/colorAccent"/>
+            <EditText
+                android:id="@+id/weightET"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/uploadButton"
-                android:layout_marginStart="10dp"
-                android:backgroundTint="@color/colorPrimary"
-                app:tint = "@color/white"
-                android:layout_gravity="right"
-                android:contentDescription="Send" />
+                android:layout_height="30dp"
+                android:layout_marginStart="120dp"
+                android:layout_marginEnd="20dp"
+                android:paddingStart="30dp"
+                android:layout_below="@id/weightET"
+                android:background="@null"
+                android:hint="Enter the weight"
+                android:inputType="number"
+                android:textColor="@color/colorAccent"
+                android:textSize="15sp"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="20dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="Description"
+                android:layout_marginStart="20dp"
+                android:paddingTop="5dp"
+                android:textColor="@color/colorAccent"/>
+            <EditText
+                android:id="@+id/descriptionET"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginStart="120dp"
+                android:layout_marginEnd="20dp"
+                android:paddingStart="30dp"
+                android:layout_below="@id/descriptionET"
+                android:background="@null"
+                android:hint="Enter the description"
+                android:inputType="number"
+                android:textColor="@color/colorAccent"
+                android:textSize="15sp"/>
+        </RelativeLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_upload"
+            android:layout_width="180dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="90dp"
+            android:textStyle="bold"
+            android:text="Upload"
+            android:textColor="#fff"
+            android:textSize="16sp"
+            android:background="@drawable/btn_gradient"
+            android:layout_marginTop="25dp"
+            />
 
-        </LinearLayout>
 
     </LinearLayout>
 
