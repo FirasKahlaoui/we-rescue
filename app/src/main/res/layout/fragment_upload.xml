@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UploadFragment">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#FFFFFF"
@@ -16,35 +18,51 @@
         android:padding="20dp"
         tools:context=".UploadActivity">
 
-       <ImageView
-                android:layout_width="300dp"
-                android:layout_height="200dp"
-                android:layout_centerInParent="true"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/upload_img_border"
-                android:src="@drawable/upload_icon" />
+        <ImageView
+            android:id="@+id/uploadImage"
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/upload_img_border"
+            android:src="@drawable/upload_icon" />
+
 
         <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginTop="25dp">
-            <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="30dp"
-            android:src="@drawable/male_icon"/>
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="150dp"
-                android:layout_marginEnd="30dp"
-                android:src="@drawable/female_icon"/>
-        </RelativeLayout>
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="60dp"
+    android:layout_marginEnd="30dp"
+    android:layout_marginTop="25dp">
+    <RadioButton
+        android:id="@+id/maleRadioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp" />
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="30dp"
+        android:src="@drawable/male_icon"/>
+
+    <RadioButton
+        android:id="@+id/femaleRadioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="120dp" />
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="150dp"
+        android:layout_marginEnd="30dp"
+        android:src="@drawable/female_icon"/>
+</RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="30dp"
@@ -222,20 +240,21 @@
                 android:textColor="@color/colorAccent"
                 android:textSize="15sp"/>
         </RelativeLayout>
+
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_upload"
+            android:id="@+id/uploadButton"
             android:layout_width="180dp"
             android:layout_height="50dp"
             android:layout_marginStart="90dp"
-            android:textStyle="bold"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/btn_gradient"
             android:text="Upload"
             android:textColor="#fff"
             android:textSize="16sp"
-            android:background="@drawable/btn_gradient"
-            android:layout_marginTop="25dp"
-            />
+            android:textStyle="bold" />
 
 
     </LinearLayout>
 
+    </ScrollView>
 </FrameLayout>

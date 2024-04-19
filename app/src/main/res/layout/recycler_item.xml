@@ -35,21 +35,37 @@
     </RelativeLayout>
 
     <androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    android:layout_marginTop="15dp"
+    app:cardCornerRadius="20dp"
+    android:elevation="10dp">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="15dp"
-        app:cardCornerRadius="20dp"
-        android:elevation="10dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="250dp"
             android:id="@+id/recyclerImage"
             android:src="@drawable/show_pass"
             android:scaleType="centerCrop"/>
-    </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/recyclerCaption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Caption"
+            android:layout_marginStart="120dp"
+            android:layout_marginTop="10dp"
+            android:textSize="17sp"
+            android:textColor="@color/colorAccent" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
     <ImageView
         android:layout_width="40dp"
         android:layout_height="40dp"

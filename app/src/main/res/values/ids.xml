@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="uploadButton" type="id" />
+    <item name="petName" type="id" />
+    <item name="petAge" type="id" />
+    <item name="petDescription" type="id" />
+    <item name="uploadImage" type="id" />
+    <item name="progressBar" type="id" />
+    <item name="speciesET" type="id" />
+    <item name="recyclerCaption" type="id" />
+    <item name="upload_img_border" type="id" />
+</resources>
