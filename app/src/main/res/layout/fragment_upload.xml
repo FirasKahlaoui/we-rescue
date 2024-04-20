@@ -4,11 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UploadFragment">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    tools:context=".UploadFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,37 +28,37 @@
 
 
         <RelativeLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="60dp"
-    android:layout_marginEnd="30dp"
-    android:layout_marginTop="25dp">
-    <RadioButton
-        android:id="@+id/maleRadioButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="25dp">
+            <RadioButton
+                android:id="@+id/maleRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp" />
 
-    <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="30dp"
-        android:src="@drawable/male_icon"/>
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="30dp"
+                android:src="@drawable/male_icon"/>
 
-    <RadioButton
-        android:id="@+id/femaleRadioButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="120dp" />
+            <RadioButton
+                android:id="@+id/femaleRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="120dp" />
 
-    <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="150dp"
-        android:layout_marginEnd="30dp"
-        android:src="@drawable/female_icon"/>
-</RelativeLayout>
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="150dp"
+                android:layout_marginEnd="30dp"
+                android:src="@drawable/female_icon"/>
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -236,7 +233,7 @@
                 android:layout_below="@id/descriptionET"
                 android:background="@null"
                 android:hint="Enter the description"
-                android:inputType="number"
+                android:inputType="text"
                 android:textColor="@color/colorAccent"
                 android:textSize="15sp"/>
         </RelativeLayout>
@@ -256,5 +253,4 @@
 
     </LinearLayout>
 
-    </ScrollView>
 </FrameLayout>
