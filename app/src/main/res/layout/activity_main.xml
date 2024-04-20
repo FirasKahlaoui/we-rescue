@@ -6,55 +6,11 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".MainActivity">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp">
-        <ImageView
-            android:layout_width="180dp"
-            android:layout_height="45dp"
-            android:layout_centerInParent="true"
-            android:src="@drawable/title"/>
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="20dp"
-            android:layout_centerVertical="true"
-            android:src="@drawable/profile_img"/>
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/search_border"
-        >
 
-        <EditText
-            android:layout_width="370dp"
-            android:layout_height="match_parent"
-            android:background="@null"
-            android:hint="Search for pets, name, location..."
-            android:inputType="text"
-            android:maxLines="1"
-            android:paddingStart="15dp"
-            android:paddingEnd="40dp"
-            android:textSize="17sp" />
-        <ImageView
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:padding="10dp"
-            android:src="@drawable/search"/>
-
-    </RelativeLayout>
     <FrameLayout
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:layout_width="match_parent"
@@ -71,8 +27,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/bottomNavigationView"
             app:labelVisibilityMode="labeled"
-            app:itemTextColor="@color/colorPrimary"
-            app:itemIconTint="@color/colorPrimary"
+            app:itemTextColor="@color/colorHint"
+            app:itemIconTint="@color/colorHint"
             android:background="@android:color/transparent"
             app:menu="@menu/bottom_menu"/>
 
@@ -87,6 +43,6 @@
         app:layout_anchor="@+id/bottomAppBar"
         app:layout_anchorGravity="top|center"
         app:maxImageSize="40dp"
-        app:tint="@color/colorPrimary" />
+        app:tint="@color/colorHint" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
