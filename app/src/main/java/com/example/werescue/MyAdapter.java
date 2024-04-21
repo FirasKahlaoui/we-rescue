@@ -62,6 +62,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Glide.with(context).load(dataList.get(position).getImageURL()).into(holder.recyclerImage);
         holder.recyclerCaption.setText(dataList.get(position).getPetName());
+        holder.recyclerCaptionLocation.setText(dataList.get(position).getLocation());
     }
 
     @Override
@@ -73,11 +74,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         ImageView recyclerImage;
         TextView recyclerCaption;
+        TextView recyclerCaptionLocation;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             recyclerImage = itemView.findViewById(R.id.recyclerImage);
-            recyclerCaption = itemView.findViewById(R.id.recyclerCaption);
+            recyclerCaption = itemView.findViewById(R.id.recyclerCaptionName);
+            recyclerCaptionLocation = itemView.findViewById(R.id.recyclerCaptionLocation);
         }
     }
 }

@@ -52,6 +52,23 @@ public class Login extends Activity {
         final TextView signUpBtn = findViewById(R.id.btn_register);
         final TextView googleLogin = findViewById(R.id.btn_google);
 
+        passwordIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (passwordShowing) {
+                    // If the password is currently showing, hide it and change the icon to show_pass
+                    passwordET.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    passwordIcon.setImageResource(R.drawable.show_pass);
+                    passwordShowing = false;
+                } else {
+                    // If the password is currently hidden, show it and change the icon to not_show_pass
+                    passwordET.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                    passwordIcon.setImageResource(R.drawable.not_show_pass);
+                    passwordShowing = true;
+                }
+            }
+        });
+
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
