@@ -2,16 +2,14 @@ package com.example.werescue;
 
 public class DataClass {
     private String imageURL, petName, description, gender, species, birthday, location, weight;
-    private int age;
 
     public DataClass(){
 
     }
 
-    public DataClass(String imageURL, String petName, int age, String description, String gender, String species, String birthday, String location, String weight) {
+    public DataClass(String imageURL, String petName, String description, String gender, String species, String birthday, String location, String weight) {
         this.imageURL = imageURL;
         this.petName = petName;
-        this.age = age;
         this.description = description;
         this.gender = gender;
         this.species = species;
@@ -34,14 +32,6 @@ public class DataClass {
 
     public void setPetName(String petName) {
         this.petName = petName;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
     }
 
     public String getDescription() {
