@@ -1,6 +1,8 @@
 package com.example.werescue;
 
-public class DataClass {
+import java.io.Serializable;
+
+public class DataClass implements Serializable {
     private String imageURL, petName, description, gender, species, birthday, location, weight;
 
     public DataClass(){

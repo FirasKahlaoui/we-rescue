@@ -1,7 +1,9 @@
 package com.example.werescue;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +11,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -59,10 +63,30 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Glide.with(context).load(dataList.get(position).getImageURL()).into(holder.recyclerImage);
         holder.recyclerCaption.setText(dataList.get(position).getPetName());
         holder.recyclerCaptionLocation.setText(dataList.get(position).getLocation());
+
+        // Set an OnClickListener on the ViewHolder
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create a new instance of PetDescriptionFragment
+                PetDescriptionFragment petDescriptionFragment = new PetDescriptionFragment();
+
+                // Create a Bundle to pass the pet data
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("petData", (Serializable) dataList.get(position));
+                petDescriptionFragment.setArguments(bundle);
+
+                // Replace the current fragment with PetDescriptionFragment
+                ((FragmentActivity) context).getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frame_layout, petDescriptionFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
     }
 
     @Override
@@ -83,4 +107,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             recyclerCaptionLocation = itemView.findViewById(R.id.recyclerCaptionLocation);
         }
     }
+
+
 }
