@@ -9,4 +9,5 @@
     <item name="speciesET" type="id" />
     <item name="recyclerCaption" type="id" />
     <item name="upload_img_border" type="id" />
+    <item name="fragment_container" type="id" />
 </resources>
