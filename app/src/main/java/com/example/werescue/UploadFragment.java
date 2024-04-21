@@ -40,7 +40,7 @@ public class UploadFragment extends Fragment {
 
     private AppCompatButton uploadButton;
     private ImageView uploadImage;
-    EditText petName, petAge, petDescription;
+    EditText petName, petDescription, speciesET, birthdayET, locationET, weightET;
     private Uri imageUri;
     final  private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Images");
     final private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
@@ -51,11 +51,15 @@ public class UploadFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_upload, container, false);
         uploadImage = view.findViewById(R.id.uploadImage);
         uploadButton = view.findViewById(R.id.uploadButton);
-        petName = view.findViewById(R.id.petName);
-        petAge = view.findViewById(R.id.petAge);
-        petDescription = view.findViewById(R.id.petDescription);
+        petName = view.findViewById(R.id.nameET);
+        petDescription = view.findViewById(R.id.descriptionET);
         RadioButton maleRadioButton = view.findViewById(R.id.maleRadioButton);
         RadioButton femaleRadioButton = view.findViewById(R.id.femaleRadioButton);
+
+        speciesET = view.findViewById(R.id.speciesET);
+        birthdayET = view.findViewById(R.id.birthdayET);
+        locationET = view.findViewById(R.id.locationET);
+        weightET = view.findViewById(R.id.weightET);
 
         maleRadioButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,29 +120,32 @@ public class UploadFragment extends Fragment {
     }
 
     private String getGender() {
-        RadioButton maleRadioButton = getView().findViewById(R.id.maleRadioButton);
-        RadioButton femaleRadioButton = getView().findViewById(R.id.femaleRadioButton);
+    RadioButton maleRadioButton = getView().findViewById(R.id.maleRadioButton);
+    RadioButton femaleRadioButton = getView().findViewById(R.id.femaleRadioButton);
 
-        if (maleRadioButton.isChecked()) {
-            return maleRadioButton.getText().toString();
-        } else if (femaleRadioButton.isChecked()) {
-            return femaleRadioButton.getText().toString();
-        } else {
-            return null;
-        }
+    if (maleRadioButton.isChecked()) {
+        return "M";
+    } else if (femaleRadioButton.isChecked()) {
+        return "F";
+    } else {
+        return null;
     }
+}
 private void uploadToFirebase(Uri uri){
     // Get the values from the EditText fields
-    String name = petName.getText().toString();
-    int age = Integer.parseInt(petAge.getText().toString());
-    String description = petDescription.getText().toString();
-
-    // Get the values from the additional fields
+    String name = petName.getText().toString().trim();
+    String description = petDescription.getText().toString().trim();
     String gender = getGender();
-    String species = ((EditText) getView().findViewById(R.id.speciesET)).getText().toString();
-    String birthday = ((EditText) getView().findViewById(R.id.birthdayET)).getText().toString();
-    String location = ((EditText) getView().findViewById(R.id.locationET)).getText().toString();
-    String weight = ((EditText) getView().findViewById(R.id.weightET)).getText().toString();
+    String species = speciesET.getText().toString().trim();
+    String birthday = birthdayET.getText().toString().trim();
+    String location = locationET.getText().toString().trim();
+    String weight = weightET.getText().toString().trim();
+
+    // Check if any field is empty
+    if(name.isEmpty() || description.isEmpty() || gender == null || species.isEmpty() || birthday.isEmpty() || location.isEmpty() || weight.isEmpty()) {
+        Toast.makeText(getActivity(), "Please fill all fields", Toast.LENGTH_SHORT).show();
+        return;
+    }
 
     String path = System.currentTimeMillis() + "." + getFileExtension(uri);
     final StorageReference imageReference = storageReference.child(path);
@@ -151,9 +158,15 @@ private void uploadToFirebase(Uri uri){
                 @Override
                 public void onSuccess(Uri uri) {
                     // Add the additional fields to the DataClass object
-                    DataClass dataClass = new DataClass(uri.toString(), name, age, description, gender, species, birthday, location, weight);
+                    DataClass dataClass = new DataClass(uri.toString(), name, description, gender, species, birthday, location, weight);
                     String key = databaseReference.push().getKey();
-                    databaseReference.child(key).setValue(dataClass);
+                    databaseReference.child(key).setValue(dataClass)
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.e("Database Error", e.getMessage(), e);
+                                }
+                            });
                     Toast.makeText(getActivity(), "Uploaded", Toast.LENGTH_SHORT).show();
                     ((MainActivity)getActivity()).replaceFragment(new HomeFragment());
                 }
