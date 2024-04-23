@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/colorPrimary"/> <!-- Change this to the fill color of your square -->
+    <corners android:radius="10dp" /> <!-- Change these to the color and width of your border -->
+</shape>
