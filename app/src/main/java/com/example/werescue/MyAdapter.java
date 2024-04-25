@@ -108,5 +108,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         }
     }
 
+    public void filter(String text) {
+        ArrayList<DataClass> filteredList = new ArrayList<>();
+        for (DataClass item : dataList) {
+            if (item.getPetName().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+        this.dataList = filteredList;
+        notifyDataSetChanged();
+    }
+
 
 }

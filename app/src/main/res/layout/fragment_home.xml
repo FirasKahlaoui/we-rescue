@@ -36,6 +36,7 @@
         >
 
         <EditText
+            android:id="@+id/search_bar"
             android:layout_width="370dp"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
@@ -44,13 +45,15 @@
             android:paddingStart="15dp"
             android:paddingEnd="40dp"
             android:textSize="17sp" />
+
         <ImageView
+            android:id="@+id/search_button"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:padding="10dp"
-            android:src="@drawable/search"/>
+            android:src="@drawable/search" />
 
     </RelativeLayout>
 
