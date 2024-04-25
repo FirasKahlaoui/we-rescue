@@ -9,6 +9,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.provider.MediaStore;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -169,6 +175,44 @@ private void uploadToFirebase(Uri uri){
                             });
                     Toast.makeText(getActivity(), "Uploaded", Toast.LENGTH_SHORT).show();
                     ((MainActivity)getActivity()).replaceFragment(new HomeFragment());
+
+                    // Convert the image to a byte array
+                    Bitmap bitmap = null;
+                    try {
+                        bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                    if (bitmap != null) {
+    bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+    byte[] imageBytes = outputStream.toByteArray();
+
+    // Insert the pet into the local SQLite database
+    PetDatabaseHelper dbHelper = new PetDatabaseHelper(getActivity());
+    SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+    ContentValues values = new ContentValues();
+    values.put("id", key);
+    values.put("name", name);
+    values.put("description", description);
+    values.put("gender", gender);
+    values.put("species", species);
+    values.put("birthday", birthday);
+    values.put("location", location);
+    values.put("weight", weight);
+    values.put("image", imageBytes);
+
+    long newRowId = db.insert("Pets", null, values);
+    if (newRowId == -1) {
+        Log.e("SQLite Error", "Failed to insert row");
+    } else {
+        Log.d("SQLite", "Pet inserted with row id: " + newRowId);
+    }
+} else {
+    // Handle the case where the bitmap is null
+    Toast.makeText(getActivity(), "Failed to create bitmap from image", Toast.LENGTH_SHORT).show();
+}
                 }
             });
         }

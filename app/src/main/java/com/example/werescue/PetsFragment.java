@@ -3,62 +3,74 @@ package com.example.werescue;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.BitmapFactory;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PetsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
 public class PetsFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+   @Override
+public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                         Bundle savedInstanceState) {
+    // Inflate the layout for this fragment
+    View view = inflater.inflate(R.layout.fragment_pets, container, false);
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    RecyclerView recyclerView = view.findViewById(R.id.petsRecyclerView);
+    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-    public PetsFragment() {
-        // Required empty public constructor
+    PetDatabaseHelper dbHelper = new PetDatabaseHelper(getActivity());
+    SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+    String[] projection = {
+            "id",
+            "name",
+            "description",
+            "gender",
+            "species",
+            "birthday",
+            "location",
+            "weight",
+            "image"
+    };
+
+    Cursor cursor = db.query(
+            "Pets",
+            projection,
+            null,
+            null,
+            null,
+            null,
+            null
+    );
+
+    List<DataClass> petList = new ArrayList<>();
+    while (cursor.moveToNext()) {
+        String id = cursor.getString(cursor.getColumnIndexOrThrow("id"));
+        String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+        String description = cursor.getString(cursor.getColumnIndexOrThrow("description"));
+        String gender = cursor.getString(cursor.getColumnIndexOrThrow("gender"));
+        String species = cursor.getString(cursor.getColumnIndexOrThrow("species"));
+        String birthday = cursor.getString(cursor.getColumnIndexOrThrow("birthday"));
+        String location = cursor.getString(cursor.getColumnIndexOrThrow("location"));
+        String weight = cursor.getString(cursor.getColumnIndexOrThrow("weight"));
+        byte[] image = cursor.getBlob(cursor.getColumnIndexOrThrow("image"));
+
+        petList.add(new DataClass(id, name, description, gender, species, birthday, location, weight, image));
     }
+    cursor.close();
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PetsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PetsFragment newInstance(String param1, String param2) {
-        PetsFragment fragment = new PetsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    PetAdapter adapter = new PetAdapter(getActivity(), petList);
+    recyclerView.setAdapter(adapter);
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pets, container, false);
-    }
+    return view;
+}
 }
