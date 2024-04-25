@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -21,6 +22,8 @@ public class PetDescriptionFragment extends Fragment {
     private TextView petDescription;
     private TextView petName;
 
+    private ImageView backButton;
+
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,7 +37,8 @@ public class PetDescriptionFragment extends Fragment {
         petWeight = view.findViewById(R.id.petWeight);
         petAge = view.findViewById(R.id.petAge);
         petDescription = view.findViewById(R.id.petDescription);
-        petName = view.findViewById(R.id.petName); // Initialize the petName TextView
+        petName = view.findViewById(R.id.petName);
+        backButton = view.findViewById(R.id.back_button);
 
         // Get the pet data from the Bundle
         DataClass petData = (DataClass) getArguments().getSerializable("petData");
@@ -49,6 +53,22 @@ public class PetDescriptionFragment extends Fragment {
             petDescription.setText(petData.getDescription());
             petName.setText(petData.getPetName());
         }
+
+        else {
+            // If petData is null, display a message
+            Toast.makeText(getContext(), "No pet data found", Toast.LENGTH_SHORT).show();
+        }
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HomeFragment homeFragment = new HomeFragment();
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.frame_layout, homeFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
 
         return view;
     }
