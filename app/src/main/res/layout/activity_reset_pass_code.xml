@@ -6,7 +6,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".ForgetPass">
+    tools:context=".ResetPassCode">
 
     <ImageView
         android:layout_width="70dp"
@@ -19,16 +19,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Forget Password"
+        android:text="Get Code "
         android:textSize="25dp"
         android:textColor="#000" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Password"
+        android:text="Email"
         android:textSize="18dp"
         android:layout_gravity="left"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:layout_marginStart="22dp"
         android:textColor="@color/textColor"
         />
@@ -47,29 +47,42 @@
             android:background="@null"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
-            android:text="Enter your new password"
+            android:text="Enter your email"
             android:textColor="@color/colorHint"
             android:textSize="12dp"
             android:layout_marginTop="5dp"/>
         <EditText
-            android:id="@+id/passET"
+            android:id="@+id/emailET"
             android:layout_width="match_parent"
             android:layout_height="36dp"
             android:background="@null"
             android:layout_marginTop="20dp"
             android:paddingStart="15dp"
             android:paddingEnd="30dp"
-            android:inputType="textPassword"
+            android:inputType="textEmailAddress"
             android:maxLines="1"
             />
 
 
 
     </RelativeLayout>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_send"
+        android:layout_width="200dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:textStyle="bold"
+        android:text="Send"
+        android:textColor="#fff"
+        android:textSize="18dp"
+        android:background="@drawable/btn_gradient"
+        android:layout_marginTop="30dp"
+        />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Confirm Password"
+        android:text="Code"
         android:textSize="18dp"
         android:layout_gravity="left"
         android:layout_marginTop="20dp"
@@ -91,19 +104,19 @@
             android:background="@null"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
-            android:text="Enter confirm Password"
+            android:text="Enter the code"
             android:textColor="@color/colorHint"
             android:textSize="12dp"
             android:layout_marginTop="5dp"/>
         <EditText
-            android:id="@+id/confirmPassET"
+            android:id="@+id/codeET"
             android:layout_width="match_parent"
             android:layout_height="36dp"
             android:background="@null"
             android:layout_marginTop="20dp"
             android:paddingStart="15dp"
             android:paddingEnd="30dp"
-            android:inputType="textPassword"
+            android:inputType="number"
             android:maxLines="1"
             />
 
@@ -113,17 +126,17 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_submit"
-        android:layout_width="match_parent"
+        android:id="@+id/btn_verify"
+        android:layout_width="200dp"
         android:layout_height="55dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:textStyle="bold"
-        android:text="Submit"
+        android:text="Verify"
         android:textColor="#fff"
         android:textSize="18dp"
         android:background="@drawable/btn_gradient"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
         />
 
 
