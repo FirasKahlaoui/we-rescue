@@ -1,10 +1,13 @@
 package com.example.werescue;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import java.io.Serializable;
 
 public class DataClass implements Serializable {
     private String imageURL, petName, description, gender, species, birthday, location, weight;
-
+    private byte[] image;
     public DataClass(){
 
     }
@@ -18,6 +21,9 @@ public class DataClass implements Serializable {
         this.birthday = birthday;
         this.location = location;
         this.weight = weight;
+    }
+
+    public DataClass(String id, String name, String description, String gender, String species, String birthday, String location, String weight, byte[] image) {
     }
 
     public String getImageURL() {
@@ -82,5 +88,22 @@ public class DataClass implements Serializable {
 
     public void setWeight(String weight) {
         this.weight = weight;
+    }
+
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public Bitmap getImageBitmap() {
+        if (image != null) {
+            return BitmapFactory.decodeByteArray(image, 0, image.length);
+        } else {
+            return null;
+        }
     }
 }
