@@ -63,6 +63,7 @@ public class Login extends Activity {
         final ImageView passwordIcon = findViewById(R.id.pass_icon);
         final TextView signUpBtn = findViewById(R.id.btn_register);
         final RelativeLayout googleLogin = findViewById(R.id.btn_google);
+        final TextView btnForgetPass = findViewById(R.id.btn_forgot_pass);
 
         passwordIcon.setOnClickListener(new View.OnClickListener() {
             @Override
