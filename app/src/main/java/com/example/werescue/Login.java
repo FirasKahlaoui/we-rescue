@@ -33,7 +33,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class Login extends Activity {
     private boolean passwordShowing = false;
-    private static final int RC_SIGN_IN = 9001;
+    private static final int RC_SIGN_IN = 123;
 
     private static final String TAG ="Login";
     private FirebaseAuth mAuth;
