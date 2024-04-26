@@ -65,6 +65,15 @@ public class Login extends Activity {
         final RelativeLayout googleLogin = findViewById(R.id.btn_google);
         final TextView btnForgetPass = findViewById(R.id.btn_forgot_pass);
 
+        btnForgetPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start the ForgetPass activity
+                Intent intent = new Intent(Login.this, ResetPassCode.class);
+                startActivity(intent);
+            }
+        });
+
         passwordIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
