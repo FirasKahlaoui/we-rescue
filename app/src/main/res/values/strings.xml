@@ -35,4 +35,6 @@
     <string name="age_prompt">Age (Optional)</string>
     <string name="size_prompt">Size (Optional)</string>
     <string name="search">Search</string>
+
+    <string name="default_web_client_id">YOUR_CLIENT_ID</string>
 </resources>

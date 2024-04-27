@@ -1,6 +1,5 @@
 package com.example.werescue;
 
-import static com.example.werescue.R.*;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,6 +17,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import java.util.Random;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -28,6 +29,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
@@ -39,6 +41,19 @@ public class Login extends Activity {
 
     // Add this line to create a SharedPreferences object
     private SharedPreferences sharedPreferences;
+
+    public String generateRandomPassword(int length) {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+<>?{}[]";
+        Random random = new Random();
+        StringBuilder password = new StringBuilder();
+
+        for (int i = 0; i < length; i++) {
+            int index = random.nextInt(characters.length());
+            password.append(characters.charAt(index));
+        }
+
+        return password.toString();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,23 +147,21 @@ public class Login extends Activity {
             }
         });
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-        .requestEmail()
-        .build();
+    .requestIdToken(getString(R.string.default_web_client_id)) // Add this line
+    .requestEmail()
+    .build();
 
         GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        googleLogin.setOnClickListener(new View.OnClickListener() {
+googleLogin.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(Login.this);
-        if (account == null) {
-            // User is not signed in, prompt user to sign in
-            Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-            startActivityForResult(signInIntent, RC_SIGN_IN);
-        } else {
-            // User is signed in, proceed with the request
-            //handleSignInResult(GoogleSignIn.getSignedInAccountFromIntent(signInIntent));
-        }
+        // Sign out the user
+        mGoogleSignInClient.signOut();
+
+        // Start the sign-in process
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 });
     }
@@ -169,14 +182,14 @@ public class Login extends Activity {
         GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
         // Signed in successfully, authenticate with Firebase
-        firebaseAuthWithGoogle(account.getIdToken());
+        firebaseAuthWithGoogle(account.getIdToken(), account.getEmail());
     } catch (ApiException e) {
         Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
         updateUI(null);
     }
 }
 
-private void firebaseAuthWithGoogle(String idToken) {
+private void firebaseAuthWithGoogle(String idToken, String email) {
     AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
     mAuth.signInWithCredential(credential)
         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -185,11 +198,41 @@ private void firebaseAuthWithGoogle(String idToken) {
                 if (task.isSuccessful()) {
                     // Sign in success, update UI with the signed-in user's information
                     FirebaseUser user = mAuth.getCurrentUser();
+                    Toast.makeText(Login.this, "Logged in", Toast.LENGTH_SHORT).show();
                     updateUI(user);
                 } else {
-                    // If sign in fails, display a message to the user.
+                    // If sign in fails, log the exception
                     Log.w(TAG, "signInWithCredential:failure", task.getException());
-                    updateUI(null);
+
+                    // Check if the email already exists
+                    if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                        // User already exists, navigate to MainActivity
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        Toast.makeText(Login.this, "Logged in", Toast.LENGTH_SHORT).show();
+                        updateUI(user);
+                    } else {
+                        // Generate a random password
+                        String password = generateRandomPassword(10);
+
+                        // Create a new account
+                        mAuth.createUserWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        // Sign up success, update UI with the signed-in user's information
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        Toast.makeText(Login.this, "Account created successfully", Toast.LENGTH_SHORT).show();
+                                        updateUI(user);
+                                    } else {
+                                        // If sign up fails, log the exception and display a message to the user.
+                                        Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                        Toast.makeText(Login.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                                        updateUI(null);
+                                    }
+                                }
+                            });
+                    }
                 }
             }
         });
