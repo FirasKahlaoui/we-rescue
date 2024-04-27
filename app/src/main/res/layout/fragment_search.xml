@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".Search">
 
     <LinearLayout
@@ -10,208 +11,155 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="50dp">
+
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/category_prompt"
-            android:layout_marginBottom="8dp" />
-
-        <GridLayout
-            android:id="@+id/grid_layout_category"
+            android:text="Name"
+            android:textSize="18dp"
+            android:layout_gravity="left"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="22dp"
+            android:textColor="@color/textColor"
+            />
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:columnCount="4"
-            android:layout_marginBottom="8dp">
+            android:layout_height="55dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/gradient_border"
+            >
 
-            <Button
-                android:id="@+id/button_all"
-                android:layout_width="90dp"
-                android:layout_height="40dp"
-                android:text="All"
-                android:background="@android:color/darker_gray" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="19dp"
+                android:background="@null"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:text="Enter the name"
+                android:textColor="@color/colorHint"
+                android:textSize="12dp"
+                android:layout_marginTop="5dp"/>
+            <EditText
+                android:id="@+id/nameET"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:background="@null"
+                android:layout_marginTop="20dp"
+                android:paddingStart="15dp"
+                android:paddingEnd="30dp"
+                android:inputType="text"
+                android:maxLines="1"
+                />
 
-            <Button
-                android:id="@+id/button_dog"
-                android:layout_width="90dp"
-                android:layout_height="40dp"
-                android:text="Dog"
-                android:background="@android:color/darker_gray" />
 
-            <Button
-                android:id="@+id/button_cat"
-                android:layout_width="90dp"
-                android:layout_height="40dp"
-                android:text="Cat"
-                android:background="@android:color/darker_gray" />
 
-            <Button
-                android:id="@+id/button_bird"
-                android:layout_width="90dp"
-                android:layout_height="40dp"
-                android:text="Bird"
-                android:background="@android:color/darker_gray" />
-
-            <Button
-                android:id="@+id/button_rabbit"
-                android:layout_width="90dp"
-                android:layout_height="40dp"
-                android:text="Rabbit"
-                android:background="@android:color/darker_gray" />
-
-            <Button
-                android:id="@+id/button_duck"
-                android:layout_width="90dp"
-                android:layout_height="40dp"
-                android:text="Duck"
-                android:background="@android:color/darker_gray" />
-
-            <Button
-                android:id="@+id/button_hamster"
-                android:layout_width="90dp"
-                android:layout_height="40dp"
-                android:text="Hamster"
-                android:background="@android:color/darker_gray" />
-
-            <Button
-                android:id="@+id/button_fish"
-                android:layout_width="90dp"
-                android:layout_height="40dp"
-                android:text="Fish"
-                android:background="@android:color/darker_gray" />
-
-            <Button
-                android:id="@+id/button_other"
-                android:layout_width="90dp"
-                android:layout_height="40dp"
-                android:text="Other"
-                android:background="@android:color/darker_gray" />
-
-        </GridLayout>
-
+        </RelativeLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/gender_prompt"
-            android:layout_marginBottom="8dp" />
-
-        <LinearLayout
-            android:id="@+id/linear_layout_gender"
+            android:text="Gender"
+            android:textSize="18dp"
+            android:layout_gravity="left"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="22dp"
+            android:textColor="@color/textColor"
+            />
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="8dp">
+            android:layout_height="55dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/gradient_border"
+            >
 
-            <Button
-                android:id="@+id/button_male"
-                android:layout_width="90dp"
-                android:layout_height="40dp"
-                android:text="Male"
-                android:background="@android:color/darker_gray" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="19dp"
+                android:background="@null"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:text="Enter the gender"
+                android:textColor="@color/colorHint"
+                android:textSize="12dp"
+                android:layout_marginTop="5dp"/>
+            <EditText
+                android:id="@+id/genderET"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:background="@null"
+                android:layout_marginTop="20dp"
+                android:paddingStart="15dp"
+                android:paddingEnd="30dp"
+                android:inputType="text"
+                android:maxLines="1"
+                />
 
-            <Button
-                android:id="@+id/button_female"
-                android:layout_width="90dp"
-                android:layout_height="40dp"
-                android:text="Female"
-                android:background="@android:color/darker_gray" />
 
-        </LinearLayout>
 
+        </RelativeLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/age_prompt"
-            android:layout_marginBottom="8dp" />
-
-        <LinearLayout
-            android:id="@+id/linear_layout_age"
+            android:text="Species"
+            android:textSize="18dp"
+            android:layout_gravity="left"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="22dp"
+            android:textColor="@color/textColor"
+            />
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="8dp">
+            android:layout_height="55dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/gradient_border"
+            >
 
-            <Button
-                android:id="@+id/button_puppy"
-                android:layout_width="90dp"
-                android:layout_height="40dp"
-                android:text="Puppy"
-                android:background="@android:color/darker_gray" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="19dp"
+                android:background="@null"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:text="Enter the species"
+                android:textColor="@color/colorHint"
+                android:textSize="12dp"
+                android:layout_marginTop="5dp"/>
+            <EditText
+                android:id="@+id/speciesET"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:background="@null"
+                android:layout_marginTop="20dp"
+                android:paddingStart="15dp"
+                android:paddingEnd="30dp"
+                android:inputType="text"
+                android:maxLines="1"
+                />
 
-            <Button
-                android:id="@+id/button_young"
-                android:layout_width="90dp"
-                android:layout_height="40dp"
-                android:text="Young"
-                android:background="@android:color/darker_gray" />
 
-            <Button
-                android:id="@+id/button_adult"
-                android:layout_width="90dp"
-                android:layout_height="40dp"
-                android:text="Adult"
-                android:background="@android:color/darker_gray" />
 
-            <Button
-                android:id="@+id/button_senior"
-                android:layout_width="90dp"
-                android:layout_height="40dp"
-                android:text="Senior"
-                android:background="@android:color/darker_gray" />
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/size_prompt"
-            android:layout_marginBottom="8dp" />
-
-        <LinearLayout
-            android:id="@+id/linear_layout_size"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="8dp">
-
-            <Button
-                android:id="@+id/button_small"
-                android:layout_width="90dp"
-                android:layout_height="40dp"
-                android:text="Small"
-                android:background="@android:color/darker_gray" />
-
-            <Button
-                android:id="@+id/button_medium"
-                android:layout_width="90dp"
-                android:layout_height="40dp"
-                android:text="Medium"
-                android:background="@android:color/darker_gray" />
-
-            <Button
-                android:id="@+id/button_large"
-                android:layout_width="90dp"
-                android:layout_height="40dp"
-                android:text="Large"
-                android:background="@android:color/darker_gray" />
-
-            <Button
-                android:id="@+id/button_giant"
-                android:layout_width="90dp"
-                android:layout_height="40dp"
-                android:text="Giant"
-                android:background="@android:color/darker_gray" />
-
-        </LinearLayout>
-
-        <Button
+        </RelativeLayout>
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/search"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp" />
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:textStyle="bold"
+            android:text="Search"
+            android:textColor="#fff"
+            android:textSize="18dp"
+            android:background="@drawable/btn_gradient"
+            android:layout_marginTop="70dp"
+            />
+
 
     </LinearLayout>
 </ScrollView>
