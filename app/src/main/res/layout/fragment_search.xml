@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".Search">
+    tools:context=".SearchFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -68,44 +68,48 @@
             android:layout_marginStart="22dp"
             android:textColor="@color/textColor"
             />
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/gradient_border"
-            >
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="80dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="25dp">
+            <RadioButton
+                android:id="@+id/maleRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp" />
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="19dp"
-                android:background="@null"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:text="Enter the gender"
-                android:textColor="@color/colorHint"
-                android:textSize="12dp"
-                android:layout_marginTop="5dp"/>
-            <EditText
-                android:id="@+id/genderET"
-                android:layout_width="match_parent"
-                android:layout_height="36dp"
-                android:background="@null"
-                android:layout_marginTop="20dp"
-                android:paddingStart="15dp"
-                android:paddingEnd="30dp"
-                android:inputType="text"
-                android:maxLines="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Male"
+                android:textSize="16dp"
+                android:layout_marginStart="55dp"
+                android:layout_marginTop="13dp"
                 />
 
+
+            <RadioButton
+                android:id="@+id/femaleRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="120dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Female"
+                android:textSize="16dp"
+                android:layout_marginStart="155dp"
+                android:layout_marginTop="13dp"
+                />
 
 
         </RelativeLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Species"
+            android:text="Age"
             android:textSize="18dp"
             android:layout_gravity="left"
             android:layout_marginTop="20dp"
@@ -127,7 +131,7 @@
                 android:background="@null"
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
-                android:text="Enter the species"
+                android:text="Enter the age"
                 android:textColor="@color/colorHint"
                 android:textSize="12dp"
                 android:layout_marginTop="5dp"/>
@@ -139,7 +143,7 @@
                 android:layout_marginTop="20dp"
                 android:paddingStart="15dp"
                 android:paddingEnd="30dp"
-                android:inputType="text"
+                android:inputType="number"
                 android:maxLines="1"
                 />
 

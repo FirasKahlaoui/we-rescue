@@ -91,12 +91,12 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginTop="20dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:text="Species"
+                android:text="Phone"
                 android:layout_marginStart="20dp"
                 android:paddingTop="5dp"
                 android:textColor="@color/colorAccent"/>
@@ -108,7 +108,7 @@
                 android:layout_marginEnd="20dp"
                 android:paddingStart="30dp"
                 android:background="@null"
-                android:hint="Enter the species"
+                android:hint="Enter the phone number"
                 android:inputType="text"
                 android:textColor="@color/colorAccent"
                 android:textSize="15sp"

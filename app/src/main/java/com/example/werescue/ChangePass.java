@@ -26,8 +26,8 @@ public class ChangePass extends AppCompatActivity {
         setContentView(R.layout.activity_change_pass);
 
         btnBack = findViewById(R.id.button_back);
-        btnChangePassword = findViewById(R.id.submitButton); // replace with your actual button id
-        newPasswordInput = findViewById(R.id.new_passwordET); // replace with your actual EditText id
+        btnChangePassword = findViewById(R.id.submitButton);
+        newPasswordInput = findViewById(R.id.new_passwordET);
 
         auth = FirebaseAuth.getInstance();
 
