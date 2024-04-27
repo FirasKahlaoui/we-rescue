@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Get Code "
+        android:text="Reset Password"
         android:textSize="25dp"
         android:textColor="#000" />
     <TextView
@@ -66,76 +66,43 @@
 
 
     </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/forgetPassProgressbar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="center_horizontal"
+        android:visibility="invisible"
+        />
+
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_send"
-        android:layout_width="200dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:textStyle="bold"
-        android:text="Send"
-        android:textColor="#fff"
-        android:textSize="18dp"
-        android:background="@drawable/btn_gradient"
-        android:layout_marginTop="30dp"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Code"
-        android:textSize="18dp"
-        android:layout_gravity="left"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="22dp"
-        android:textColor="@color/textColor"
-        />
-    <RelativeLayout
+        android:id="@+id/btn_reset"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/gradient_border"
-        >
+        android:textStyle="bold"
+        android:text="Reset Pass"
+        android:textColor="#fff"
+        android:textSize="18dp"
+        android:background="@drawable/btn_gradient"
+        />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="19dp"
-            android:background="@null"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
-            android:text="Enter the code"
-            android:textColor="@color/colorHint"
-            android:textSize="12dp"
-            android:layout_marginTop="5dp"/>
-        <EditText
-            android:id="@+id/codeET"
-            android:layout_width="match_parent"
-            android:layout_height="36dp"
-            android:background="@null"
-            android:layout_marginTop="20dp"
-            android:paddingStart="15dp"
-            android:paddingEnd="30dp"
-            android:inputType="number"
-            android:maxLines="1"
-            />
-
-
-
-    </RelativeLayout>
 
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_verify"
-        android:layout_width="200dp"
+        android:id="@+id/btn_back"
+        android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:textStyle="bold"
-        android:text="Verify"
+        android:text="BAck"
         android:textColor="#fff"
         android:textSize="18dp"
-        android:background="@drawable/btn_gradient"
+        android:background="@drawable/btn_back"
         android:layout_marginTop="30dp"
         />
 
