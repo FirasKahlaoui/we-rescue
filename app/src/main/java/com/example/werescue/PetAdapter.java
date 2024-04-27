@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import java.io.File;
 import java.util.List;
 
 public class PetAdapter extends RecyclerView.Adapter<PetAdapter.PetViewHolder> {
@@ -35,12 +36,18 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.PetViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PetViewHolder holder, int position) {
-        DataClass pet = petList.get(position);
-        holder.recyclerCaption.setText(pet.getPetName());
-        holder.recyclerCaptionLocation.setText(pet.getLocation());
-        Glide.with(context).load(pet.getImagePath()).into(holder.recyclerImage);
+public void onBindViewHolder(@NonNull PetViewHolder holder, int position) {
+    DataClass pet = petList.get(position);
+    holder.recyclerCaption.setText(pet.getPetName());
+    holder.recyclerCaptionLocation.setText(pet.getLocation());
+
+    if (pet.getImagePath() != null && !pet.getImagePath().isEmpty()) {
+        File imgFile = new File(pet.getImagePath());
+        if(imgFile.exists()){
+            Glide.with(context).load(imgFile).into(holder.recyclerImage);
+        }
     }
+}
 
     @Override
     public int getItemCount() {
