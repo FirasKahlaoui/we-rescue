@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 public class PetAdapter extends RecyclerView.Adapter<PetAdapter.PetViewHolder> {
+
     private Context context;
     private List<DataClass> petList;
 
@@ -33,20 +34,13 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.PetViewHolder> {
         return new PetViewHolder(view);
     }
 
-@Override
-public void onBindViewHolder(@NonNull PetViewHolder holder, int position) {
-    DataClass pet = petList.get(position);
-    holder.petName.setText(pet.getPetName());
-    holder.petLocation.setText(pet.getLocation());
-
-    // Get the file path
-    String filePath = pet.getImagePath();
-
-    // Use Glide to load the image from the file path
-    Glide.with(context)
-        .load(filePath)
-        .into(holder.petImage);
-}
+    @Override
+    public void onBindViewHolder(@NonNull PetViewHolder holder, int position) {
+        DataClass pet = petList.get(position);
+        holder.recyclerCaption.setText(pet.getPetName());
+        holder.recyclerCaptionLocation.setText(pet.getLocation());
+        Glide.with(context).load(pet.getImagePath()).into(holder.recyclerImage);
+    }
 
     @Override
     public int getItemCount() {
@@ -54,15 +48,16 @@ public void onBindViewHolder(@NonNull PetViewHolder holder, int position) {
     }
 
     public static class PetViewHolder extends RecyclerView.ViewHolder {
-        ImageView petImage;
-        TextView petName;
-        TextView petLocation;
+
+        ImageView recyclerImage;
+        TextView recyclerCaption;
+        TextView recyclerCaptionLocation;
 
         public PetViewHolder(@NonNull View itemView) {
             super(itemView);
-            petImage = itemView.findViewById(R.id.recyclerImage);
-            petName = itemView.findViewById(R.id.recyclerCaptionName);
-            petLocation = itemView.findViewById(R.id.recyclerCaptionLocation);
+            recyclerImage = itemView.findViewById(R.id.recyclerImage);
+            recyclerCaption = itemView.findViewById(R.id.recyclerCaptionName);
+            recyclerCaptionLocation = itemView.findViewById(R.id.recyclerCaptionLocation);
         }
     }
 }
