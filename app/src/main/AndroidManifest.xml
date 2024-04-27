@@ -15,9 +15,7 @@
         <activity
             android:name=".ResetPassCode"
             android:exported="false" />
-        <activity
-            android:name=".ForgetPass"
-            android:exported="false" />
+        <activity android:name=".ChangePass"/>
         <activity
             android:name=".MainActivity"
             android:exported="true" />
