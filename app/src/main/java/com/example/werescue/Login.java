@@ -199,6 +199,15 @@ private void firebaseAuthWithGoogle(String idToken, String email) {
                     // Sign in success, update UI with the signed-in user's information
                     FirebaseUser user = mAuth.getCurrentUser();
                     Toast.makeText(Login.this, "Logged in", Toast.LENGTH_SHORT).show();
+
+                    // Add data to the shared preferences
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putBoolean("isLoggedIn", true);
+                    editor.putString("userEmail", user.getEmail());
+                    editor.putString("userName", user.getDisplayName());
+                    editor.putString("userPhotoUrl", user.getPhotoUrl().toString());
+                    editor.apply();
+
                     updateUI(user);
                 } else {
                     // If sign in fails, log the exception

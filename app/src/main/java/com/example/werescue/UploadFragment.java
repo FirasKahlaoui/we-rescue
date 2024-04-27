@@ -152,6 +152,8 @@ private void uploadToFirebase(Uri uri){
     String weightStr = weightET.getText().toString().trim();
     int weight = Integer.parseInt(weightStr);
 
+    // Convert the Uri to a local file path
+    String localFilePath = getRealPathFromURI(getActivity(), uri);
     String path = System.currentTimeMillis() + "." + getFileExtension(uri);
     final StorageReference imageReference = storageReference.child(path);
     Log.d("Upload Path", "Image will be uploaded to: " + path);
@@ -168,7 +170,7 @@ private void uploadToFirebase(Uri uri){
                 ((MainActivity)getActivity()).replaceFragment(new HomeFragment());
 
                 // Insert data into local SQLite database
-                insertIntoDatabase(key, name, description, gender, species, birthdayStr, location, weight, uri.toString());
+                insertIntoDatabase(key, name, description, gender, species, birthdayStr, location, weight, localFilePath);
             });
         })
         .addOnFailureListener(e -> {
@@ -177,7 +179,7 @@ private void uploadToFirebase(Uri uri){
         });
 }
 
-private void insertIntoDatabase(String id, String name, String description, String gender, String species, String birthdayStr, String location, int weight, String filePath) {
+private void insertIntoDatabase(String id, String name, String description, String gender, String species, String birthdayStr, String location, int weight, String localFilePath) {
     // Get a writable database
     PetDatabaseHelper dbHelper = new PetDatabaseHelper(getActivity());
     SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -202,7 +204,7 @@ private void insertIntoDatabase(String id, String name, String description, Stri
     values.put("birthday", birthdayStr);
     values.put("location", location);
     values.put("weight", weight);
-    values.put("imagePath", filePath);
+    values.put("imagePath", localFilePath);
 
     // Insert the new row, returning the primary key value of the new row
     long newRowId = db.insert("Pets", null, values);
@@ -217,6 +219,21 @@ private void insertIntoDatabase(String id, String name, String description, Stri
             return true;
         } catch (CharacterCodingException e) {
             return false;
+        }
+    }
+
+    public static String getRealPathFromURI(Context context, Uri contentUri) {
+        Cursor cursor = null;
+        try {
+            String[] proj = { MediaStore.Images.Media.DATA };
+            cursor = context.getContentResolver().query(contentUri, proj, null, null, null);
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
         }
     }
 

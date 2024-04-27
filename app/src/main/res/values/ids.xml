@@ -10,4 +10,5 @@
     <item name="recyclerCaption" type="id" />
     <item name="upload_img_border" type="id" />
     <item name="fragment_container" type="id" />
+    <item name="container" type="id" />
 </resources>

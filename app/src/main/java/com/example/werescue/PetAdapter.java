@@ -3,7 +3,7 @@ package com.example.werescue;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
 
 import java.io.File;
 import java.util.List;
@@ -36,18 +35,33 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.PetViewHolder> {
     }
 
     @Override
-public void onBindViewHolder(@NonNull PetViewHolder holder, int position) {
-    DataClass pet = petList.get(position);
-    holder.recyclerCaption.setText(pet.getPetName());
-    holder.recyclerCaptionLocation.setText(pet.getLocation());
+    public void onBindViewHolder(@NonNull PetViewHolder holder, int position) {
+        DataClass pet = petList.get(position);
+        holder.recyclerCaption.setText(pet.getPetName());
+        holder.recyclerCaptionLocation.setText(pet.getLocation());
 
-    if (pet.getImagePath() != null && !pet.getImagePath().isEmpty()) {
-        File imgFile = new File(pet.getImagePath());
-        if(imgFile.exists()){
-            Glide.with(context).load(imgFile).into(holder.recyclerImage);
+        String imagePath = pet.getImagePath();
+        if (imagePath != null && !imagePath.isEmpty()) {
+            File imgFile = new File(imagePath);
+            if(imgFile.exists()){
+                Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                holder.recyclerImage.setImageBitmap(myBitmap);
+            }
         }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("selectedPet", pet);
+                DescriptionOwnerFragment fragment = new DescriptionOwnerFragment();
+                fragment.setArguments(bundle);
+                ((FragmentActivity)context).getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frame_layout, fragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
     }
-}
 
     @Override
     public int getItemCount() {
