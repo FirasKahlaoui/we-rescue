@@ -30,30 +30,36 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private Context context;
     private DatabaseReference databaseReference;
 
+    private ArrayList<DataClass> originalDataList;
+    private ArrayList<DataClass> filteredDataList;
+
     public MyAdapter(Context context, DatabaseReference databaseReference) {
         this.context = context;
         this.databaseReference = databaseReference;
+        this.originalDataList = new ArrayList<>();
+        this.filteredDataList = new ArrayList<>();
         loadData();
     }
 
     private void loadData() {
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                dataList.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    DataClass data = snapshot.getValue(DataClass.class);
-                    dataList.add(data);
-                }
-                notifyDataSetChanged();
+    databaseReference.addValueEventListener(new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            dataList.clear();
+            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                DataClass data = snapshot.getValue(DataClass.class);
+                dataList.add(data);
             }
+            originalDataList = new ArrayList<>(dataList); // Update the originalDataList
+            notifyDataSetChanged();
+        }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle possible errors.
-            }
-        });
-    }
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+            // Handle possible errors.
+        }
+    });
+}
 
     @NonNull
     @Override
@@ -118,6 +124,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         this.dataList = filteredList;
         notifyDataSetChanged();
     }
+
+    public void showAllItems() {
+    this.dataList = new ArrayList<>(this.originalDataList);
+    notifyDataSetChanged();
+}
 
 
 }

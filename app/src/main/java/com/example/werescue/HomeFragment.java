@@ -70,20 +70,26 @@ public void onViewCreated(@NonNull View view, @NonNull Bundle savedInstanceState
     // Add the TextWatcher to the EditText
     EditText searchBar = view.findViewById(R.id.search_bar);
     searchBar.addTextChangedListener(new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            // No action needed here
-        }
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        // No action needed here
+    }
 
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        if(s.toString().isEmpty()){
+            // If search bar is empty, display all items
+            adapter.showAllItems();
+        } else {
+            // If search bar is not empty, filter the items
             adapter.filter(s.toString());
         }
+    }
 
-        @Override
-        public void afterTextChanged(Editable s) {
-            // No action needed here
-        }
-    });
+    @Override
+    public void afterTextChanged(Editable s) {
+        // No action needed here
+    }
+});
 }
 }
