@@ -1,15 +1,24 @@
 package com.example.werescue;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 
 import java.io.Serializable;
 
 public class DataClass implements Serializable {
-    private String imageURL, petName, description, gender, species, birthday, location, weight;
-    private byte[] image;
+    private String imageURL, petName, description, gender, species, birthday, location, weight, id, imagePath;
     public DataClass(){
 
+    }
+
+    public DataClass(String id, String petName, String description, String gender, String species, String birthday, String location, String weight, String imagePath) {
+        this.id = id;
+        this.petName = petName;
+        this.description = description;
+        this.gender = gender;
+        this.species = species;
+        this.birthday = birthday;
+        this.location = location;
+        this.weight = weight;
+        this.imagePath = imagePath;
     }
 
     public DataClass(String imageURL, String petName, String description, String gender, String species, String birthday, String location, String weight) {
