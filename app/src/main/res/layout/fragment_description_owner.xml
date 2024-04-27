@@ -16,11 +16,12 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <ImageView
+                android:id="@+id/back_button"
                 android:layout_width="20dp"
                 android:layout_height="30dp"
-                android:src="@drawable/back_icon"
-                />
+                android:src="@drawable/back_icon" />
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="30dp"
