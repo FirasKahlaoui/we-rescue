@@ -6,22 +6,22 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class PetDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "petDatabase.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 4; // Increment the database version
 
     public PetDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        String CREATE_PETS_TABLE = "CREATE TABLE " + "Pets" + "("
-                + "id" + " INTEGER PRIMARY KEY," + "name" + " TEXT,"
-                + "description" + " TEXT," + "gender" + " TEXT,"
-                + "species" + " TEXT," + "birthday" + " TEXT,"
-                + "location" + " TEXT," + "weight" + " TEXT,"
-                + "image" + " BLOB" + ")";
-        db.execSQL(CREATE_PETS_TABLE);
-    }
+@Override
+public void onCreate(SQLiteDatabase db) {
+    String CREATE_PETS_TABLE = "CREATE TABLE " + "Pets" + "("
+            + "id" + " TEXT PRIMARY KEY," + "name" + " TEXT,"
+            + "description" + " TEXT," + "gender" + " TEXT,"
+            + "species" + " TEXT," + "birthday" + " TEXT,"
+            + "location" + " TEXT," + "weight" + " INTEGER,"
+            + "imagePath" + " TEXT" + ")";
+    db.execSQL(CREATE_PETS_TABLE);
+}
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

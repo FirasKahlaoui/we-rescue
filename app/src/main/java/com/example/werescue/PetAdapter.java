@@ -3,6 +3,7 @@ package com.example.werescue;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -30,16 +33,20 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.PetViewHolder> {
         return new PetViewHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull PetViewHolder holder, int position) {
-        DataClass pet = petList.get(position);
-        holder.petName.setText(pet.getPetName() );
-        holder.petLocation.setText(pet.getLocation());
-        // Convert the byte array to a Bitmap and set it to the ImageView
-        Bitmap bitmap = BitmapFactory.decodeByteArray(pet.getImage(), 0, pet.getImage().length);
-        holder.petImage.setImageBitmap(bitmap);
-        // Set other pet details if needed
-    }
+@Override
+public void onBindViewHolder(@NonNull PetViewHolder holder, int position) {
+    DataClass pet = petList.get(position);
+    holder.petName.setText(pet.getPetName());
+    holder.petLocation.setText(pet.getLocation());
+
+    // Get the file path
+    String filePath = pet.getImagePath();
+
+    // Use Glide to load the image from the file path
+    Glide.with(context)
+        .load(filePath)
+        .into(holder.petImage);
+}
 
     @Override
     public int getItemCount() {

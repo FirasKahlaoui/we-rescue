@@ -91,19 +91,11 @@ public class DataClass implements Serializable {
     }
 
 
-    public byte[] getImage() {
-        return image;
-    }
+public String getImagePath() {
+    return imageURL;
+}
 
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
-    public Bitmap getImageBitmap() {
-        if (image != null) {
-            return BitmapFactory.decodeByteArray(image, 0, image.length);
-        } else {
-            return null;
-        }
-    }
+public void setImagePath(String imagePath) {
+    this.imageURL = imagePath;
+}
 }

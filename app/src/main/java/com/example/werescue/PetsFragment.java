@@ -39,7 +39,7 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
             "birthday",
             "location",
             "weight",
-            "image"
+            "imagePath" // Corrected here
     };
 
     Cursor cursor = db.query(
@@ -62,9 +62,9 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
         String birthday = cursor.getString(cursor.getColumnIndexOrThrow("birthday"));
         String location = cursor.getString(cursor.getColumnIndexOrThrow("location"));
         String weight = cursor.getString(cursor.getColumnIndexOrThrow("weight"));
-        byte[] image = cursor.getBlob(cursor.getColumnIndexOrThrow("image"));
+        String imagePath = cursor.getString(cursor.getColumnIndexOrThrow("imagePath")); // Corrected here
 
-        petList.add(new DataClass(id, name, description, gender, species, birthday, location, weight, image));
+        petList.add(new DataClass(id, name, description, gender, species, birthday, location, weight, imagePath.getBytes())); // Corrected here
     }
     cursor.close();
 

@@ -10,11 +10,21 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.provider.MediaStore;
-import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.charset.CharacterCodingException;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -27,20 +37,14 @@ import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Toast;
 import android.util.Log;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class UploadFragment extends Fragment {
 
@@ -143,90 +147,82 @@ private void uploadToFirebase(Uri uri){
     String description = petDescription.getText().toString().trim();
     String gender = getGender();
     String species = speciesET.getText().toString().trim();
-    String birthday = birthdayET.getText().toString().trim();
+    String birthdayStr = birthdayET.getText().toString().trim();
     String location = locationET.getText().toString().trim();
-    String weight = weightET.getText().toString().trim();
-
-    // Check if any field is empty
-    if(name.isEmpty() || description.isEmpty() || gender == null || species.isEmpty() || birthday.isEmpty() || location.isEmpty() || weight.isEmpty()) {
-        Toast.makeText(getActivity(), "Please fill all fields", Toast.LENGTH_SHORT).show();
-        return;
-    }
+    String weightStr = weightET.getText().toString().trim();
+    int weight = Integer.parseInt(weightStr);
 
     String path = System.currentTimeMillis() + "." + getFileExtension(uri);
     final StorageReference imageReference = storageReference.child(path);
     Log.d("Upload Path", "Image will be uploaded to: " + path);
 
-    imageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-        @Override
-        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-            imageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
-                    // Add the additional fields to the DataClass object
-                    DataClass dataClass = new DataClass(uri.toString(), name, description, gender, species, birthday, location, weight);
-                    String key = databaseReference.push().getKey();
-                    databaseReference.child(key).setValue(dataClass)
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.e("Database Error", e.getMessage(), e);
-                                }
-                            });
-                    Toast.makeText(getActivity(), "Uploaded", Toast.LENGTH_SHORT).show();
-                    ((MainActivity)getActivity()).replaceFragment(new HomeFragment());
+    imageReference.putFile(uri)
+        .addOnSuccessListener(taskSnapshot -> {
+            imageReference.getDownloadUrl().addOnSuccessListener(urri -> {
+                // Add the additional fields to the DataClass object
+                DataClass dataClass = new DataClass(uri.toString(), name, description, gender, species, birthdayStr, location, weightStr);
+                String key = databaseReference.push().getKey();
+                databaseReference.child(key).setValue(dataClass)
+                        .addOnFailureListener(e -> Log.e("Database Error", e.getMessage(), e));
+                Toast.makeText(getActivity(), "Uploaded", Toast.LENGTH_SHORT).show();
+                ((MainActivity)getActivity()).replaceFragment(new HomeFragment());
 
-                    // Convert the image to a byte array
-                    Bitmap bitmap = null;
-                    try {
-                        bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                    if (bitmap != null) {
-    bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
-    byte[] imageBytes = outputStream.toByteArray();
+                // Insert data into local SQLite database
+                insertIntoDatabase(key, name, description, gender, species, birthdayStr, location, weight, uri.toString());
+            });
+        })
+        .addOnFailureListener(e -> {
+            Log.e("Upload Error", e.getMessage(), e);
+            Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
+        });
+}
 
-    // Insert the pet into the local SQLite database
+private void insertIntoDatabase(String id, String name, String description, String gender, String species, String birthdayStr, String location, int weight, String filePath) {
+    // Get a writable database
     PetDatabaseHelper dbHelper = new PetDatabaseHelper(getActivity());
     SQLiteDatabase db = dbHelper.getWritableDatabase();
 
+    // Check if the id already exists in the Pets table
+    String query = "SELECT id FROM Pets WHERE id = ?";
+    Cursor cursor = db.rawQuery(query, new String[] {id});
+    if (cursor.moveToFirst()) {
+        Log.e("SQLite Error", "Failed to insert id: " + id + ". Id already exists.");
+        cursor.close();
+        return;
+    }
+    cursor.close();
+
+    // Create a new map of values, where column names are the keys
     ContentValues values = new ContentValues();
-    values.put("id", key);
+    values.put("id", id);
     values.put("name", name);
     values.put("description", description);
     values.put("gender", gender);
     values.put("species", species);
-    values.put("birthday", birthday);
+    values.put("birthday", birthdayStr);
     values.put("location", location);
     values.put("weight", weight);
-    values.put("image", imageBytes);
+    values.put("imagePath", filePath);
 
+    // Insert the new row, returning the primary key value of the new row
     long newRowId = db.insert("Pets", null, values);
     if (newRowId == -1) {
-        Log.e("SQLite Error", "Failed to insert row");
-    } else {
-        Log.d("SQLite", "Pet inserted with row id: " + newRowId);
+        Log.e("SQLite Error", "Failed to insert data");
     }
-} else {
-    // Handle the case where the bitmap is null
-    Toast.makeText(getActivity(), "Failed to create bitmap from image", Toast.LENGTH_SHORT).show();
 }
-                }
-            });
+    public static boolean isUTF8MisInterpreted(String input, String encoding) {
+        CharsetDecoder decoder = Charset.forName(encoding).newDecoder();
+        try {
+            decoder.decode(ByteBuffer.wrap(input.getBytes()));
+            return true;
+        } catch (CharacterCodingException e) {
+            return false;
         }
-    }).addOnFailureListener(new OnFailureListener() {
-        @Override
-        public void onFailure(@NonNull Exception e) {
-            Log.e("Upload Error", e.getMessage(), e);
-            Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
-        }
-    });
-}
-    private String getFileExtension(Uri fileUri){
-        ContentResolver contentResolver = getActivity().getContentResolver();
-        MimeTypeMap mime = MimeTypeMap.getSingleton();
-        return mime.getExtensionFromMimeType(contentResolver.getType(fileUri));
     }
+
+private String getFileExtension(Uri fileUri){
+    ContentResolver contentResolver = getActivity().getContentResolver();
+    MimeTypeMap mime = MimeTypeMap.getSingleton();
+    return mime.getExtensionFromMimeType(contentResolver.getType(fileUri));
+}
 }
