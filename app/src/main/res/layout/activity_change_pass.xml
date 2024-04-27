@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:paddingBottom="30dp">
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:src="@drawable/change_pass" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Change Password"
+        android:textSize="25dp"
+        android:textColor="#000" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Old Password"
+        android:textSize="18dp"
+        android:layout_gravity="left"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="22dp"
+        android:textColor="@color/textColor"
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/gradient_border"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="19dp"
+            android:background="@null"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:text="Enter Old Password"
+            android:textColor="@color/colorHint"
+            android:textSize="12dp"
+            android:layout_marginTop="5dp"/>
+        <EditText
+            android:id="@+id/old_passwordET"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:background="@null"
+            android:layout_marginTop="20dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="30dp"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            />
+
+
+
+    </RelativeLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Password"
+        android:textSize="18dp"
+        android:layout_gravity="left"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="22dp"
+        android:textColor="@color/textColor"
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/gradient_border"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="19dp"
+            android:background="@null"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:text="Enter New Password"
+            android:textColor="@color/colorHint"
+            android:textSize="12dp"
+            android:layout_marginTop="5dp"/>
+        <EditText
+            android:id="@+id/new_passwordET"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:background="@null"
+            android:layout_marginTop="20dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="30dp"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            />
+
+
+
+    </RelativeLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confirm Password"
+        android:textSize="18dp"
+        android:layout_gravity="left"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="22dp"
+        android:textColor="@color/textColor"
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/gradient_border"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="19dp"
+            android:background="@null"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:text="Enter Confirm Password"
+            android:textColor="@color/colorHint"
+            android:textSize="12dp"
+            android:layout_marginTop="5dp"/>
+        <EditText
+            android:id="@+id/confirm_passwordET"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:background="@null"
+            android:layout_marginTop="20dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="30dp"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            />
+
+
+    </RelativeLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/submitButton"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:textStyle="bold"
+        android:text="Submit"
+        android:textColor="#fff"
+        android:textSize="18dp"
+        android:background="@drawable/btn_gradient"
+        android:layout_marginTop="50dp"
+        />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_back"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:textStyle="bold"
+        android:text="BAck"
+        android:textColor="#fff"
+        android:textSize="18dp"
+        android:background="@drawable/btn_back"
+        android:layout_marginTop="30dp"
+        />
+
+
+
+
+</LinearLayout>

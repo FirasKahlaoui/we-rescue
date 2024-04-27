@@ -86,6 +86,7 @@
                 android:textSize="16dp"
                 android:textStyle="bold"/>
             <ImageView
+                android:id="@+id/goIcon"
                 android:layout_width="40dp"
                 android:layout_height="38dp"
                 android:layout_marginTop="15dp"
