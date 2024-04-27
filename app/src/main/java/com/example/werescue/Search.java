@@ -36,10 +36,6 @@ public class Search extends Fragment {
 
         buttonSearch = view.findViewById(R.id.button_search);
 
-        setupButtonGroup(view, R.id.grid_layout_category, selected -> category = selected);
-        setupButtonGroup(view, R.id.linear_layout_gender, selected -> gender = selected);
-        setupButtonGroup(view, R.id.linear_layout_age, selected -> age = selected);
-        setupButtonGroup(view, R.id.linear_layout_size, selected -> size = selected);
 
         buttonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
