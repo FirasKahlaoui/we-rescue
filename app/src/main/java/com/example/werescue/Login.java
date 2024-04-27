@@ -2,6 +2,7 @@ package com.example.werescue;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -200,12 +201,20 @@ private void firebaseAuthWithGoogle(String idToken, String email) {
                     FirebaseUser user = mAuth.getCurrentUser();
                     Toast.makeText(Login.this, "Logged in", Toast.LENGTH_SHORT).show();
 
-                    // Add data to the shared preferences
+                    // Get the user's name and email
+                    String name = user.getDisplayName();
+                    String email = user.getEmail();
+
+                    // If the name is null, use the first part of the email as the name
+                    if (name == null && email != null) {
+                        name = email.split("@")[0];
+                    }
+
+                    // Save the name and email in shared preferences
+                    SharedPreferences sharedPreferences = Login.this.getSharedPreferences("user_info", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putBoolean("isLoggedIn", true);
-                    editor.putString("userEmail", user.getEmail());
-                    editor.putString("userName", user.getDisplayName());
-                    editor.putString("userPhotoUrl", user.getPhotoUrl().toString());
+                    editor.putString("name", name);
+                    editor.putString("email", email);
                     editor.apply();
 
                     updateUI(user);

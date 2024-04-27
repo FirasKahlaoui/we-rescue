@@ -109,7 +109,7 @@
                 android:paddingStart="30dp"
                 android:background="@null"
                 android:hint="Enter the phone number"
-                android:inputType="text"
+                android:inputType="number"
                 android:textColor="@color/colorAccent"
                 android:textSize="15sp"
                 tools:ignore="DuplicateIds" />

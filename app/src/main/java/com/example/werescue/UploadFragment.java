@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -116,15 +117,80 @@ public class UploadFragment extends Fragment {
         });
 
         uploadButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (imageUri != null){
-                    uploadToFirebase(imageUri);
-                } else  {
-                    Toast.makeText(getActivity(), "Please select image", Toast.LENGTH_SHORT).show();
-                }
+    @Override
+    public void onClick(View view) {
+        if (imageUri != null){
+            String name = petName.getText().toString().trim();
+            String description = petDescription.getText().toString().trim();
+            String gender = getGender();
+            String species = speciesET.getText().toString().trim();
+            String birthdayStr = birthdayET.getText().toString().trim();
+            String location = locationET.getText().toString().trim();
+            String weightStr = weightET.getText().toString().trim();
+
+            // Check if all fields are filled
+            if (name.isEmpty() || description.isEmpty() || gender == null || species.isEmpty() || birthdayStr.isEmpty() || location.isEmpty() || weightStr.isEmpty()) {
+                Toast.makeText(getActivity(), "All fields should be filled", Toast.LENGTH_SHORT).show();
+                return;
             }
-        });
+
+            // Check if name is alphabetic
+            if (!name.matches("[a-zA-Z]+")) {
+                Toast.makeText(getActivity(), "Name should be alphabetic", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Check if species is a number of 8 characters
+            if (!species.matches("\\d{8}")) {
+                Toast.makeText(getActivity(), "Phone Number should be 8 characters", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Check if birthday is in the format dd/mm/yyyy
+            if (!birthdayStr.matches("\\d{2}/\\d{2}/\\d{4}")) {
+                Toast.makeText(getActivity(), "Birthday should be in the format dd/mm/yyyy", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Check if the date values are valid
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            sdf.setLenient(false);
+            try {
+                Date birthday = sdf.parse(birthdayStr);
+                Date today = new Date();
+                if (birthday.after(today)) {
+                    Toast.makeText(getActivity(), "Birthday should not be after today's date", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            } catch (ParseException e) {
+                Toast.makeText(getActivity(), "Invalid date", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Check if location is alphanumeric
+            if (!location.matches("[a-zA-Z0-9 ]+")) {
+                Toast.makeText(getActivity(), "Location should be alphanumeric", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Check if weight is a number of 1 or 2 digits
+            if (!weightStr.matches("\\d{1,2}")) {
+                Toast.makeText(getActivity(), "Weight should be a number of 1 or 2 digits", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Check if description is alphanumeric and can contain spaces
+            if (!description.matches("[a-zA-Z0-9 ]+")) {
+                Toast.makeText(getActivity(), "Description should be alphanumeric and can contain spaces", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            uploadToFirebase(imageUri);
+        } else  {
+            Toast.makeText(getActivity(), "Please select image", Toast.LENGTH_SHORT).show();
+        }
+    }
+});
 
         return view;
     }
@@ -152,6 +218,11 @@ private void uploadToFirebase(Uri uri){
     String weightStr = weightET.getText().toString().trim();
     int weight = Integer.parseInt(weightStr);
 
+    // Get the owner's name and email from shared preferences
+    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user_info", Context.MODE_PRIVATE);
+    String ownerName = sharedPreferences.getString("name", "");
+    String ownerEmail = sharedPreferences.getString("email", "");
+
     // Convert the Uri to a local file path
     String localFilePath = getRealPathFromURI(getActivity(), uri);
     String path = System.currentTimeMillis() + "." + getFileExtension(uri);
@@ -162,7 +233,7 @@ private void uploadToFirebase(Uri uri){
         .addOnSuccessListener(taskSnapshot -> {
             imageReference.getDownloadUrl().addOnSuccessListener(urri -> {
                 // Add the additional fields to the DataClass object
-                DataClass dataClass = new DataClass(uri.toString(), name, description, gender, species, birthdayStr, location, weightStr);
+                DataClass dataClass = new DataClass(uri.toString(), name, description, gender, species, birthdayStr, location, weightStr, ownerName, ownerEmail);
                 String key = databaseReference.push().getKey();
                 databaseReference.child(key).setValue(dataClass)
                         .addOnFailureListener(e -> Log.e("Database Error", e.getMessage(), e));

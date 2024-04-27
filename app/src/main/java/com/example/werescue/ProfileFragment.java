@@ -40,6 +40,18 @@ public class ProfileFragment extends Fragment {
         String email = user.getEmail();
         Uri photoUrl = user.getPhotoUrl();
 
+        // If the name is null, use the first part of the email as the name
+        if (name == null && email != null) {
+            name = email.split("@")[0];
+        }
+
+        // Save the name and email in shared preferences
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user_info", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("name", name);
+        editor.putString("email", email);
+        editor.apply();
+
         // Set the user's name and email
         TextView profileName = view.findViewById(R.id.profile_name);
         TextView profileEmail = view.findViewById(R.id.profile_email);

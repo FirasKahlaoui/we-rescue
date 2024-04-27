@@ -35,6 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="25dp"
+                android:layout_marginBottom="20dp"
                 android:textColor="@color/colorAccent" >
                 <TextView
                     android:id="@+id/recyclerCaptionName"
@@ -45,6 +46,10 @@
                     android:textSize="22sp"
                     android:layout_marginStart="15dp"
                     />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorAccent" >
                 <ImageView
                     android:layout_width="35dp"
                     android:layout_height="30dp"
@@ -60,12 +65,7 @@
                     android:layout_marginStart="50dp"
                     android:layout_marginTop="45dp"
                     android:textColor="@color/colorAccent"/>
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="35dp"
-                    android:layout_marginStart="280dp"
-                    android:src="@drawable/like_icon"
-                    />
+            </RelativeLayout>
             </RelativeLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

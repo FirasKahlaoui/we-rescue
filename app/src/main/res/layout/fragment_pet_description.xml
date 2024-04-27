@@ -149,27 +149,23 @@
             android:layout_marginTop="15dp"
             android:layout_marginStart="35dp"
             >
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="20dp"
-                android:background="@drawable/circle_shape"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Owner"
                 android:textSize="15dp"
-                android:layout_marginStart="90dp"
+
                 />
+
             <TextView
+                android:id="@+id/ownerName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="23dp"
                 android:text="Harper Grace"
                 android:textSize="18dp"
-                android:layout_marginStart="90dp"
-                android:layout_marginTop="23dp"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="wrap_content"

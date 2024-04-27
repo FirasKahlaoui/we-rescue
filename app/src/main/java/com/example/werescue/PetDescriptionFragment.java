@@ -13,6 +13,10 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+
 public class PetDescriptionFragment extends Fragment {
 
     private ImageView petImage;
@@ -25,6 +29,8 @@ public class PetDescriptionFragment extends Fragment {
     private TextView petLocation;
 
     private TextView petSpecies;
+
+    private TextView ownerName;
 
     private TextView ownerEmail;
 
@@ -46,6 +52,7 @@ public class PetDescriptionFragment extends Fragment {
         petName = view.findViewById(R.id.petName);
         petLocation = view.findViewById(R.id.petLocation);
         petSpecies = view.findViewById(R.id.petSpecies);
+        ownerName = view.findViewById(R.id.ownerName);
         ownerEmail = view.findViewById(R.id.owner_email);
         backButton = view.findViewById(R.id.back_button);
 
@@ -57,12 +64,29 @@ public class PetDescriptionFragment extends Fragment {
         if (petData != null) {
             // Use the pet data to update the views
             Glide.with(this).load(petData.getImageURL()).into(petImage);
-            petGender.setText(petData.getGender());
-            petWeight.setText(String.valueOf(petData.getWeight()));
-            petAge.setText(String.valueOf(petData.getBirthday()));
+            String gender = petData.getGender();
+            if ("F".equals(gender)) {
+                petGender.setText("Female");
+            } else if ("M".equals(gender)) {
+                petGender.setText("Male");
+            }
+            // Display the weight
+            petWeight.setText(petData.getWeight() + " Kg");
+            // Parse the birthday string into a LocalDate
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate birthday = LocalDate.parse(petData.getBirthday(), formatter);
+
+            // Calculate the age
+            Period period = Period.between(birthday, LocalDate.now());
+            int age = period.getYears();
+
+            // Display the age
+            petAge.setText(age + " years");
             petDescription.setText(petData.getDescription());
             petName.setText(petData.getPetName());
             petLocation.setText(petData.getLocation());
+            ownerName.setText(petData.getOwnerName());
+            ownerEmail.setText(petData.getOwnerEmail());
             petSpecies.setText(petData.getSpecies());
         }
 

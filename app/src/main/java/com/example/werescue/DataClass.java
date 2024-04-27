@@ -4,7 +4,7 @@ package com.example.werescue;
 import java.io.Serializable;
 
 public class DataClass implements Serializable {
-    private String imageURL, petName, description, gender, species, birthday, location, weight, id, imagePath;
+    private String imageURL, petName, description, gender, species, birthday, location, weight, id, imagePath, ownerName, ownerEmail;
     public DataClass(){
 
     }
@@ -33,6 +33,19 @@ public class DataClass implements Serializable {
     }
 
     public DataClass(String id, String name, String description, String gender, String species, String birthday, String location, String weight, byte[] image) {
+    }
+
+    public DataClass(String imageURL, String petName, String description, String gender, String species, String birthday, String location, String weight, String ownerName, String ownerEmail) {
+        this.imageURL = imageURL;
+        this.petName = petName;
+        this.description = description;
+        this.gender = gender;
+        this.species = species;
+        this.birthday = birthday;
+        this.location = location;
+        this.weight = weight;
+        this.ownerName = ownerName;
+        this.ownerEmail = ownerEmail;
     }
 
     public String getImageURL() {
@@ -99,12 +112,26 @@ public class DataClass implements Serializable {
         this.weight = weight;
     }
 
+    public String getOwnerName() {
+    return ownerName;
+    }
 
-public String getImagePath() {
-    return imageURL;
-}
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
 
-public void setImagePath(String imagePath) {
-    this.imageURL = imagePath;
-}
+    public String getOwnerEmail() {
+        return ownerEmail;
+    }
+
+    public void setOwnerEmail(String ownerEmail) {
+        this.ownerEmail = ownerEmail;
+    }
+    public String getImagePath() {
+        return imageURL;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imageURL = imagePath;
+    }
 }
