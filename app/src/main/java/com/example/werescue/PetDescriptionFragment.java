@@ -22,6 +22,12 @@ public class PetDescriptionFragment extends Fragment {
     private TextView petDescription;
     private TextView petName;
 
+    private TextView petLocation;
+
+    private TextView petSpecies;
+
+    private TextView ownerEmail;
+
     private ImageView backButton;
 
     @SuppressLint("MissingInflatedId")
@@ -38,7 +44,11 @@ public class PetDescriptionFragment extends Fragment {
         petAge = view.findViewById(R.id.petAge);
         petDescription = view.findViewById(R.id.petDescription);
         petName = view.findViewById(R.id.petName);
+        petLocation = view.findViewById(R.id.petLocation);
+        petSpecies = view.findViewById(R.id.petSpecies);
+        ownerEmail = view.findViewById(R.id.owner_email);
         backButton = view.findViewById(R.id.back_button);
+
 
         // Get the pet data from the Bundle
         DataClass petData = (DataClass) getArguments().getSerializable("petData");
@@ -52,6 +62,8 @@ public class PetDescriptionFragment extends Fragment {
             petAge.setText(String.valueOf(petData.getBirthday()));
             petDescription.setText(petData.getDescription());
             petName.setText(petData.getPetName());
+            petLocation.setText(petData.getLocation());
+            petSpecies.setText(petData.getSpecies());
         }
 
         else {

@@ -212,15 +212,6 @@ private void insertIntoDatabase(String id, String name, String description, Stri
         Log.e("SQLite Error", "Failed to insert data");
     }
 }
-    public static boolean isUTF8MisInterpreted(String input, String encoding) {
-        CharsetDecoder decoder = Charset.forName(encoding).newDecoder();
-        try {
-            decoder.decode(ByteBuffer.wrap(input.getBytes()));
-            return true;
-        } catch (CharacterCodingException e) {
-            return false;
-        }
-    }
 
     public static String getRealPathFromURI(Context context, Uri contentUri) {
         Cursor cursor = null;

@@ -167,14 +167,15 @@
                 android:layout_marginTop="6dp"
                 android:layout_marginStart="15dp"
                 android:src="@drawable/phone_icon"/>
+
             <TextView
+                android:id="@+id/petSpecies"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Phone Number"
-                android:textSize="15dp"
-                android:paddingTop="6dp"
                 android:layout_marginStart="53dp"
-                />
+                android:paddingTop="6dp"
+                android:text="Phone Number"
+                android:textSize="15dp" />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="wrap_content"

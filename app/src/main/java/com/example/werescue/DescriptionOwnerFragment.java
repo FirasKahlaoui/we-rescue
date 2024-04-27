@@ -34,6 +34,7 @@ public class DescriptionOwnerFragment extends Fragment {
         TextView petBirthday = view.findViewById(R.id.petAge);
         TextView petLocation = view.findViewById(R.id.petLocation);
         TextView petWeight = view.findViewById(R.id.petWeight);
+        TextView petSpecies = view.findViewById(R.id.petSpecies);
 
         if (pet != null) {
             petName.setText(pet.getPetName());
@@ -42,6 +43,7 @@ public class DescriptionOwnerFragment extends Fragment {
             petBirthday.setText(pet.getBirthday());
             petLocation.setText(pet.getLocation());
             petWeight.setText(pet.getWeight());
+            petSpecies.setText(pet.getSpecies());
         }
 
         backButton.setOnClickListener(new View.OnClickListener() {
