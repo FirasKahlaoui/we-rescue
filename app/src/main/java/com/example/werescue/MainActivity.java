@@ -10,7 +10,7 @@ import android.view.View;
 
 import com.example.werescue.HomeFragment;
 import com.example.werescue.R;
-import com.example.werescue.Search;
+import com.example.werescue.SearchFragment;
 import com.example.werescue.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,7 +32,7 @@ protected void onCreate(Bundle savedInstanceState) {
         if (id == R.id.home) {
             replaceFragment(new HomeFragment());
         } else if (id == R.id.search) {
-            replaceFragment(new Search());
+            replaceFragment(new SearchFragment());
         } else if (id == R.id.pets) {
             replaceFragment(new PetsFragment());
         } else if (id == R.id.profile) {

@@ -7,8 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.GridLayout;
-import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
 
@@ -16,7 +14,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
-public class Search extends Fragment {
+public class SearchFragment extends Fragment {
 
     private Button buttonSearch;
     private String category = "All";
