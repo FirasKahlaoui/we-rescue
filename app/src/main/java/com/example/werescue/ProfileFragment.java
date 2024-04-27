@@ -3,6 +3,7 @@ package com.example.werescue;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -33,15 +35,24 @@ public class ProfileFragment extends Fragment {
         // Get the current user
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        // Get the user's name and email
+        // Get the user's name, email, and photoUrl
         String name = user.getDisplayName();
         String email = user.getEmail();
+        Uri photoUrl = user.getPhotoUrl();
 
         // Set the user's name and email
         TextView profileName = view.findViewById(R.id.profile_name);
         TextView profileEmail = view.findViewById(R.id.profile_email);
         profileName.setText(name);
         profileEmail.setText(email);
+
+        // Set the user's profile image
+        ImageView profileImage = view.findViewById(R.id.prifile_image);
+        if (photoUrl != null) {
+            Glide.with(this)
+                .load(photoUrl)
+                .into(profileImage);
+        }
 
         Button logoutButton = view.findViewById(R.id.logoutButton);
         logoutButton.setOnClickListener(new View.OnClickListener() {
