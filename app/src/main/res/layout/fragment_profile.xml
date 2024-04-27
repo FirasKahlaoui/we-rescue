@@ -31,28 +31,33 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="10dp">
+
             <ImageView
+                android:id="@+id/prifile_image"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:background="@drawable/circle_shape"/>
+                android:background="@drawable/circle_shape" />
+
             <TextView
+                android:id="@+id/profile_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Xavier Britto"
                 android:layout_marginStart="80dp"
                 android:layout_marginTop="10dp"
-                android:textSize="17dp"
-                android:textStyle="bold"
+                android:text="Xavier Britto"
                 android:textColor="@color/white"
-                />
+                android:textSize="17dp"
+                android:textStyle="bold" />
+
             <TextView
+                android:id="@+id/profile_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="xavier.britto@gmail.com"
                 android:layout_marginStart="80dp"
                 android:layout_marginTop="35dp"
-                android:textSize="13dp"
-                android:textColor="@color/white"/>
+                android:text="xavier.britto@gmail.com"
+                android:textColor="@color/white"
+                android:textSize="13dp" />
 
 
 
