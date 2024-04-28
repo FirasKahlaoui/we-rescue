@@ -56,6 +56,8 @@ dependencies {
     // Add this line to include Firebase Database
     implementation("com.google.firebase:firebase-database")
 
+    implementation ("com.google.firebase:firebase-database:19.7.0")
+
     // Add these lines to include Glide
     implementation("com.github.bumptech.glide:glide:4.12.0")
     

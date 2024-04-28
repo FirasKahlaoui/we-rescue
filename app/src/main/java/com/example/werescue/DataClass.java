@@ -5,8 +5,16 @@ import java.io.Serializable;
 
 public class DataClass implements Serializable {
     private String imageURL, petName, description, gender, species, birthday, location, weight, id, imagePath, ownerName, ownerEmail;
+    private String name;
+    private int age;
     public DataClass(){
 
+    }
+
+    public DataClass(String name, String gender, int age) {
+        this.name = name;
+        this.gender = gender;
+        this.age = age;
     }
 
     public DataClass(String id, String petName, String description, String gender, String species, String birthday, String location, String weight, String imagePath) {
@@ -46,6 +54,14 @@ public class DataClass implements Serializable {
         this.weight = weight;
         this.ownerName = ownerName;
         this.ownerEmail = ownerEmail;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
     }
 
     public String getImageURL() {

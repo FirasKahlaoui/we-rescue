@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -39,6 +40,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         this.originalDataList = new ArrayList<>();
         this.filteredDataList = new ArrayList<>();
         loadData();
+    }
+    public MyAdapter(ArrayList<Object> objects) {
+        this.dataList = new ArrayList<>();
+        for (Object object : objects) {
+            if (object instanceof DataClass) {
+                this.dataList.add((DataClass) object);
+            }
+        }
+    }
+
+    public MyAdapter(List<DataClass> pets) {
+        this.dataList = new ArrayList<>(pets);
     }
 
     private void loadData() {
@@ -94,6 +107,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             }
         });
     }
+
+public void updateData(List<DataClass> newData) {
+    this.dataList = new ArrayList<>(newData);
+    notifyDataSetChanged();
+}
 
     @Override
     public int getItemCount() {
