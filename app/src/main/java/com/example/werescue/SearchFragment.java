@@ -85,8 +85,9 @@ public class SearchFragment extends Fragment {
     private void performSearch() {
     String name = petName.getText().toString().trim();
     String age = petAge.getText().toString().trim();
-    if (!petGenderMale.isChecked() && !petGenderFemale.isChecked()) {
-        Toast.makeText(getContext(), "Please select a gender", Toast.LENGTH_SHORT).show();
+    boolean isGenderSelected = petGenderMale.isChecked() || petGenderFemale.isChecked();
+    if (name.isEmpty() && age.isEmpty() && !isGenderSelected) {
+        Toast.makeText(getContext(), "Please fill at least one field", Toast.LENGTH_SHORT).show();
         return;
     }
     String gender = petGenderMale.isChecked() ? "M" : "F";
