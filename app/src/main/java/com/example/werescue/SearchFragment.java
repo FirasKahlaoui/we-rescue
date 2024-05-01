@@ -10,6 +10,8 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -89,7 +91,7 @@ public class SearchFragment extends Fragment {
     }
     String gender = petGenderMale.isChecked() ? "M" : "F";
 
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("pets");
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Images");
     Log.d("SearchFragment", "Connected to Firebase database");
     Query query = createQuery(databaseReference, name, age, gender);
 
@@ -101,34 +103,31 @@ public class SearchFragment extends Fragment {
                 DataClass data = snapshot.getValue(DataClass.class);
                 pets.add(data);
             }
+            logNumberOfPets();
 
-    // Log the size of the pets list
-    Log.d("SearchFragment", "Number of pets: " + pets.size());
-    Log.d("SearchFragment", "Query parameters - Name: " + name + ", Age: " + age + ", Gender: " + gender);
-    Log.d("SearchFragment", "DataSnapshot: " + dataSnapshot.toString());
+            // Log the size of the pets list
+            Log.d("SearchFragment", "Number of pets: " + pets.size());
+            Log.d("SearchFragment", "Query parameters - Name: " + name + ", Age: " + age + ", Gender: " + gender);
+            Log.d("SearchFragment", "DataSnapshot: " + dataSnapshot.toString());
 
-    if (pets.isEmpty()) {
-        // If there are no pets, navigate back to the SearchFragment and display a toast message
-        getFragmentManager().popBackStack();
-        Toast.makeText(getContext(), "There are no matches", Toast.LENGTH_SHORT).show();
-    } else {
-        // Get a reference to the SearchFilter fragment
-        SearchFilter searchFilter = (SearchFilter) getFragmentManager().findFragmentById(R.id.filterRecyclerView);
+            if (pets.isEmpty()) {
+                // If there are no pets, navigate back to the SearchFragment and display a toast message
+                getFragmentManager().popBackStack();
+                Toast.makeText(getContext(), "There are no matches", Toast.LENGTH_SHORT).show();
+            } else {
+                // Create a bundle and put the pets list into it
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("pets", (Serializable) pets);
+                SearchFilter searchFilter = new SearchFilter();
+                searchFilter.setArguments(bundle);
 
-        // If the SearchFilter fragment is null, create a new instance
-        if (searchFilter == null) {
-            searchFilter = new SearchFilter();
+                // Replace the current fragment with the SearchFilter fragment
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.frame_layout, searchFilter)
+                        .addToBackStack(null)
+                        .commit();
+            }
         }
-
-        // Update the RecyclerView in the SearchFilter fragment
-        searchFilter.updateData(pets);
-
-        // Replace the current fragment with the SearchFilter fragment
-        getFragmentManager().beginTransaction()
-                .replace(R.id.frame_layout, searchFilter)
-                .commit();
-    }
-}
 
         @Override
         public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -137,6 +136,23 @@ public class SearchFragment extends Fragment {
         }
     });
 }
+
+
+    private void logNumberOfPets() {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Images");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                long numberOfPets = dataSnapshot.getChildrenCount();
+                Log.d("SearchFragment", "Number of pets: " + numberOfPets);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("SearchFragment", "Database error: " + databaseError.getMessage());
+            }
+        });
+    }
     private Query createQuery(DatabaseReference databaseReference, String name, String age, String gender) {
         Query query = null;
 

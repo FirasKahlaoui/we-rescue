@@ -10,7 +10,6 @@ import com.example.werescue.MyAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +18,6 @@ public class SearchFilter extends Fragment {
 
     private RecyclerView recyclerView;
     private MyAdapter myAdapter;
-    private TextView noMatchesTextView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -28,25 +26,19 @@ public class SearchFilter extends Fragment {
 
         recyclerView = view.findViewById(R.id.filterRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        myAdapter = new MyAdapter(new ArrayList<>());
-        recyclerView.setAdapter(myAdapter);
 
-        noMatchesTextView = view.findViewById(R.id.noMatchesTextView);
+        // Retrieve the data from the bundle
+        List<DataClass> pets = (List<DataClass>) getArguments().getSerializable("pets");
+
+        myAdapter = new MyAdapter(getContext(), pets);
+        recyclerView.setAdapter(myAdapter);
 
         return view;
     }
 
     public void updateData(List<DataClass> pets) {
-    if (myAdapter != null) {
-        myAdapter.updateData(pets);
-    }
-
-    if (noMatchesTextView != null) {
-        if (pets.isEmpty()) {
-            noMatchesTextView.setVisibility(View.VISIBLE);
-        } else {
-            noMatchesTextView.setVisibility(View.GONE);
+        if (myAdapter != null) {
+            myAdapter.updateData(pets);
         }
     }
-}
 }

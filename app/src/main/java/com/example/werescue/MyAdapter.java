@@ -31,6 +31,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private DatabaseReference databaseReference;
     private List<DataClass> originalDataList;
     private List<DataClass> filteredDataList;
+    private List<DataClass> pets;
+
+    public MyAdapter(Context context, List<DataClass> pets) {
+        this.context = context;
+        this.dataList = pets != null ? pets : new ArrayList<>();
+    }
 
     public MyAdapter(Context context, DatabaseReference databaseReference) {
         this.context = context;
@@ -111,7 +117,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public int getItemCount() {
-        return dataList.size();
+        return dataList != null ? dataList.size() : 0;
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
