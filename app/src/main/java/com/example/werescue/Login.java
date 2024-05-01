@@ -190,37 +190,42 @@ googleLogin.setOnClickListener(new View.OnClickListener() {
     }
 }
 
-private void firebaseAuthWithGoogle(String idToken, String email) {
-    AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-    mAuth.signInWithCredential(credential)
-        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    // Sign in success, update UI with the signed-in user's information
-                    FirebaseUser user = mAuth.getCurrentUser();
-                    Toast.makeText(Login.this, "Logged in", Toast.LENGTH_SHORT).show();
+    private void firebaseAuthWithGoogle(String idToken, String email) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            Toast.makeText(Login.this, "Logged in", Toast.LENGTH_SHORT).show();
 
-                    // Get the user's name and email
-                    String name = user.getDisplayName();
-                    String email = user.getEmail();
+                            // Get the user's name and email
+                            String name = user.getDisplayName();
+                            String email = user.getEmail();
 
-                    // If the name is null, use the first part of the email as the name
-                    if (name == null && email != null) {
-                        name = email.split("@")[0];
-                    }
+                            // If the name is null, use the first part of the email as the name
+                            if (name == null && email != null) {
+                                name = email.split("@")[0];
+                            }
 
-                    // Save the name and email in shared preferences
-                    SharedPreferences sharedPreferences = Login.this.getSharedPreferences("user_info", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("name", name);
-                    editor.putString("email", email);
-                    editor.apply();
+                            // Save the name and email in shared preferences
+                            SharedPreferences sharedPreferences = Login.this.getSharedPreferences("user_info", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("name", name);
+                            editor.putString("email", email);
+                            editor.apply();
 
-                    updateUI(user);
-                } else {
-                    // If sign in fails, log the exception
-                    Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            // Save the login state in shared preferences
+                            SharedPreferences.Editor loginEditor = sharedPreferences.edit();
+                            loginEditor.putBoolean("isLoggedIn", true);
+                            loginEditor.apply();
+
+                            updateUI(user);
+                        } else {
+                            // If sign in fails, log the exception
+                            Log.w(TAG, "signInWithCredential:failure", task.getException());
 
                     // Check if the email already exists
                     if (task.getException() instanceof FirebaseAuthUserCollisionException) {

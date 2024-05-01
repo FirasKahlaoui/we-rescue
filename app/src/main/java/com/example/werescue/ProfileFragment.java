@@ -78,6 +78,7 @@ public class ProfileFragment extends Fragment {
                 editor.clear();
                 editor.apply();
 
+
                 // Navigate back to the Login activity
                 Intent intent = new Intent(getActivity(), Login.class);
                 startActivity(intent);

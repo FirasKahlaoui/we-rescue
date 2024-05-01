@@ -1,6 +1,7 @@
 package com.example.werescue;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,57 +87,64 @@ public class SearchFragment extends Fragment {
         Toast.makeText(getContext(), "Please select a gender", Toast.LENGTH_SHORT).show();
         return;
     }
-    String gender = petGenderMale.isChecked() ? "Male" : "Female";
+    String gender = petGenderMale.isChecked() ? "M" : "F";
 
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("pets");
+    Log.d("SearchFragment", "Connected to Firebase database");
     Query query = createQuery(databaseReference, name, age, gender);
 
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<DataClass> pets = new ArrayList<>();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    DataClass data = snapshot.getValue(DataClass.class);
-                    pets.add(data);
-                }
-
-                // Get a reference to the SearchFilter fragment
-                SearchFilter searchFilter = (SearchFilter) getFragmentManager().findFragmentById(R.id.filterRecyclerView);
-
-                // If the SearchFilter fragment is null, create a new instance
-                if (searchFilter == null) {
-                    searchFilter = new SearchFilter();
-                }
-
-                // Update the RecyclerView in the SearchFilter fragment
-                searchFilter.updateData(pets);
-
-                // Replace the current fragment with the SearchFilter fragment
-                getFragmentManager().beginTransaction()
-                        .replace(R.id.container, searchFilter)
-                        .commit();
+    query.addValueEventListener(new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            List<DataClass> pets = new ArrayList<>();
+            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                DataClass data = snapshot.getValue(DataClass.class);
+                pets.add(data);
             }
+
+    // Log the size of the pets list
+    Log.d("SearchFragment", "Number of pets: " + pets.size());
+    Log.d("SearchFragment", "Query parameters - Name: " + name + ", Age: " + age + ", Gender: " + gender);
+    Log.d("SearchFragment", "DataSnapshot: " + dataSnapshot.toString());
+
+    if (pets.isEmpty()) {
+        // If there are no pets, navigate back to the SearchFragment and display a toast message
+        getFragmentManager().popBackStack();
+        Toast.makeText(getContext(), "There are no matches", Toast.LENGTH_SHORT).show();
+    } else {
+        // Get a reference to the SearchFilter fragment
+        SearchFilter searchFilter = (SearchFilter) getFragmentManager().findFragmentById(R.id.filterRecyclerView);
+
+        // If the SearchFilter fragment is null, create a new instance
+        if (searchFilter == null) {
+            searchFilter = new SearchFilter();
+        }
+
+        // Update the RecyclerView in the SearchFilter fragment
+        searchFilter.updateData(pets);
+
+        // Replace the current fragment with the SearchFilter fragment
+        getFragmentManager().beginTransaction()
+                .replace(R.id.frame_layout, searchFilter)
+                .commit();
+    }
+}
 
         @Override
         public void onCancelled(@NonNull DatabaseError databaseError) {
-            // Handle possible errors.
+            // Log the error
+            Log.d("SearchFragment", "Database error: " + databaseError.getMessage());
         }
     });
 }
     private Query createQuery(DatabaseReference databaseReference, String name, String age, String gender) {
-        Query query;
+        Query query = null;
 
-        if (!name.isEmpty() && !age.isEmpty()) {
-            query = databaseReference.orderByChild("name").equalTo(name)
-                    .orderByChild("age").equalTo(age)
-                    .orderByChild("gender").equalTo(gender);
-        } else if (!name.isEmpty()) {
-            query = databaseReference.orderByChild("name").equalTo(name)
-                    .orderByChild("gender").equalTo(gender);
+        if (!name.isEmpty()) {
+            query = databaseReference.orderByChild("petName").equalTo(name);
         } else if (!age.isEmpty()) {
-            query = databaseReference.orderByChild("age").equalTo(age)
-                    .orderByChild("gender").equalTo(gender);
-        } else {
+            query = databaseReference.orderByChild("age").equalTo(age);
+        } else if (!gender.isEmpty()) {
             query = databaseReference.orderByChild("gender").equalTo(gender);
         }
 

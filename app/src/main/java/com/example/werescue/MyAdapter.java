@@ -26,33 +26,29 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
-
-    private ArrayList<DataClass> dataList = new ArrayList<>();
+    private List<DataClass> dataList;
     private Context context;
     private DatabaseReference databaseReference;
-
-    private ArrayList<DataClass> originalDataList;
-    private ArrayList<DataClass> filteredDataList;
+    private List<DataClass> originalDataList;
+    private List<DataClass> filteredDataList;
 
     public MyAdapter(Context context, DatabaseReference databaseReference) {
         this.context = context;
         this.databaseReference = databaseReference;
+        this.dataList = new ArrayList<>();
         this.originalDataList = new ArrayList<>();
         this.filteredDataList = new ArrayList<>();
         loadData();
     }
-    public MyAdapter(ArrayList<Object> objects) {
-        this.dataList = new ArrayList<>();
-        for (Object object : objects) {
-            if (object instanceof DataClass) {
-                this.dataList.add((DataClass) object);
-            }
-        }
-    }
 
     public MyAdapter(List<DataClass> pets) {
+        this.context = null;
+        this.databaseReference = null;
         this.dataList = new ArrayList<>(pets);
+        this.originalDataList = new ArrayList<>(pets);
+        this.filteredDataList = new ArrayList<>(pets);
     }
+
 
     private void loadData() {
     databaseReference.addValueEventListener(new ValueEventListener() {
@@ -108,10 +104,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         });
     }
 
-public void updateData(List<DataClass> newData) {
-    this.dataList = new ArrayList<>(newData);
-    notifyDataSetChanged();
-}
+    public void updateData(List<DataClass> pets) {
+        this.dataList = pets;
+        notifyDataSetChanged();
+    }
 
     @Override
     public int getItemCount() {
