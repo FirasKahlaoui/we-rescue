@@ -16,15 +16,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.provider.MediaStore;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.charset.CharacterCodingException;
-import java.nio.charset.Charset;
-import java.nio.charset.CharsetDecoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.io.ByteArrayOutputStream;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -246,8 +242,19 @@ private void uploadToFirebase(Uri uri){
                 Toast.makeText(getActivity(), "Uploaded", Toast.LENGTH_SHORT).show();
                 ((MainActivity)getActivity()).replaceFragment(new HomeFragment());
 
+                // Convert the image to a byte array
+                Bitmap bitmap = null;
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+                byte[] imageBitmap = outputStream.toByteArray();
+
                 // Insert data into local SQLite database
-                insertIntoDatabase(key, name, description, gender, species, birthdayStr, location, weight, imageUrl, ownerEmail);
+                insertIntoDatabase(key, name, description, gender, species, birthdayStr, location, weight, imageUrl, ownerEmail, imageBitmap);
 
                 // Hide the ProgressBar
                 uploadProgressBar.setVisibility(View.INVISIBLE);
@@ -262,7 +269,7 @@ private void uploadToFirebase(Uri uri){
         });
 }
 
-private void insertIntoDatabase(String id, String name, String description, String gender, String species, String birthdayStr, String location, int weight, String localFilePath, String ownerEmail) {
+private void insertIntoDatabase(String id, String name, String description, String gender, String species, String birthdayStr, String location, int weight, String localFilePath, String ownerEmail, byte[] imageBitmap) {
     // Get a writable database
     PetDatabaseHelper dbHelper = new PetDatabaseHelper(getActivity());
     SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -289,6 +296,7 @@ private void insertIntoDatabase(String id, String name, String description, Stri
     values.put("weight", weight);
     values.put("imagePath", localFilePath);
     values.put("email", ownerEmail); // Add the email to the ContentValues
+    values.put("imageBitmap", imageBitmap); // Add the image bitmap to the ContentValues
 
     // Insert the new row, returning the primary key value of the new row
     long newRowId = db.insert("Pets", null, values);

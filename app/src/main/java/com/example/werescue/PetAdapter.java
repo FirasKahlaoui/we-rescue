@@ -2,7 +2,6 @@ package com.example.werescue;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.File;
 import java.util.List;
 
 public class PetAdapter extends RecyclerView.Adapter<PetAdapter.PetViewHolder> {
@@ -40,14 +38,12 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.PetViewHolder> {
         holder.recyclerCaption.setText(pet.getPetName());
         holder.recyclerCaptionLocation.setText(pet.getLocation());
 
-        String imagePath = pet.getImagePath();
-        if (imagePath != null && !imagePath.isEmpty()) {
-            File imgFile = new File(imagePath);
-            if(imgFile.exists()){
-                Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-                holder.recyclerImage.setImageBitmap(myBitmap);
-            }
+        // Set the image bitmap to the ImageView
+        Bitmap imageBitmap = pet.getImageBitmap();
+        if (imageBitmap != null) {
+            holder.recyclerImage.setImageBitmap(imageBitmap);
         }
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

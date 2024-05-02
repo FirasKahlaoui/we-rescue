@@ -3,6 +3,8 @@ package com.example.werescue;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.Manifest;
 
@@ -62,7 +64,8 @@ public class PetsFragment extends Fragment {
             "location",
             "weight",
             "imagePath",
-            "email" // Include the email in the projection
+            "email", // Include the email in the projection
+            "imageBitmap" // Include the image bitmap in the projection
         };
 
         String selection = "email = ?";
@@ -90,7 +93,11 @@ public class PetsFragment extends Fragment {
             String weight = cursor.getString(cursor.getColumnIndexOrThrow("weight"));
             String imagePath = cursor.getString(cursor.getColumnIndexOrThrow("imagePath"));
 
-            petList.add(new DataClass(id, name, description, gender, species, birthday, location, weight, imagePath));
+            // Get the image bitmap from the cursor
+            byte[] imageBitmapBytes = cursor.getBlob(cursor.getColumnIndexOrThrow("imageBitmap"));
+            Bitmap imageBitmap = BitmapFactory.decodeByteArray(imageBitmapBytes, 0, imageBitmapBytes.length);
+
+            petList.add(new DataClass(id, name, description, gender, species, birthday, location, weight, imagePath, imageBitmap));
         }
         cursor.close();
 

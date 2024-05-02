@@ -61,12 +61,7 @@
                 android:layout_marginEnd="30dp"
                 android:src="@drawable/female_icon" />
         </RelativeLayout>
-        <ProgressBar
-            android:id="@+id/uploadProgressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="gone" />
+
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -245,6 +240,12 @@
                 android:textColor="@color/colorAccent"
                 android:textSize="15sp"/>
         </RelativeLayout>
+        <ProgressBar
+            android:id="@+id/uploadProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/uploadButton"
             android:layout_width="180dp"

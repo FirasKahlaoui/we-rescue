@@ -2,6 +2,7 @@ package com.example.werescue;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import java.time.format.DateTimeFormatter;
 public class DescriptionOwnerFragment extends Fragment {
 
     private ImageView backButton;
+    private ImageView petImage;
 
     @Nullable
     @Override
@@ -33,7 +35,7 @@ public class DescriptionOwnerFragment extends Fragment {
         }
 
         backButton = view.findViewById(R.id.back_button);
-
+        petImage = view.findViewById(R.id.petImage);
         TextView petName = view.findViewById(R.id.petName);
         TextView petDescription = view.findViewById(R.id.petDescription);
         TextView petGender = view.findViewById(R.id.petGender);
@@ -70,6 +72,10 @@ public class DescriptionOwnerFragment extends Fragment {
             SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user_info", Context.MODE_PRIVATE);
             String OwnerEmail = sharedPreferences.getString("email", "");
             ownerEmail.setText(OwnerEmail);
+            Bitmap imageBitmap = pet.getImageBitmap();
+            if (imageBitmap != null) {
+                petImage.setImageBitmap(imageBitmap);
+            }
         }
 
         backButton.setOnClickListener(new View.OnClickListener() {

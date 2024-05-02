@@ -1,12 +1,16 @@
 package com.example.werescue;
 
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 
 public class DataClass implements Serializable {
     private String imageURL, petName, description, gender, species, birthday, location, weight, id, imagePath, ownerName, ownerEmail;
     private String name;
     private int age;
+
+    private Bitmap imageBitmap;
     public DataClass(){
 
     }
@@ -54,6 +58,27 @@ public class DataClass implements Serializable {
         this.weight = weight;
         this.ownerName = ownerName;
         this.ownerEmail = ownerEmail;
+    }
+
+    public DataClass(String id, String petName, String description, String gender, String species, String birthday, String location, String weight, String imagePath, Bitmap imageBitmap) {
+        this.id = id;
+        this.petName = petName;
+        this.description = description;
+        this.gender = gender;
+        this.species = species;
+        this.birthday = birthday;
+        this.location = location;
+        this.weight = weight;
+        this.imagePath = imagePath;
+        this.imageBitmap = imageBitmap;
+    }
+
+    public Bitmap getImageBitmap() {
+        return imageBitmap;
+    }
+
+    public void setImageBitmap(Bitmap imageBitmap) {
+        this.imageBitmap = imageBitmap;
     }
 
     public String getName() {
