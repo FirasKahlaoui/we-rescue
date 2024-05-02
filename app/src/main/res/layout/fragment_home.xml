@@ -43,7 +43,7 @@
             android:layout_width="370dp"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
-            android:hint="Search for pets, name, location..."
+            android:hint="Search for pets by name"
             android:maxLines="1"
             android:paddingStart="15dp"
             android:paddingEnd="40dp"

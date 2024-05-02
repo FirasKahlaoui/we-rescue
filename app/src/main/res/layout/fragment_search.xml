@@ -13,6 +13,15 @@
         android:padding="16dp"
         android:layout_marginTop="50dp">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:layout_marginStart="145dp"
+            android:textColor="@color/colorAccent"/>
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -68,30 +77,30 @@
             android:layout_marginStart="22dp"
             android:textColor="@color/textColor"
             />
-            <RadioGroup
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="80dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/maleRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="80dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginTop="25dp"
-                android:orientation="horizontal">
-                <RadioButton
-                    android:id="@+id/maleRadioButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:text="Male"
-                    android:textSize="16dp"
-                    />
-                <RadioButton
-                    android:id="@+id/femaleRadioButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:text="Female"
-                    android:textSize="16dp"/>
+                android:layout_marginStart="20dp"
+                android:text="Male"
+                android:textSize="16dp"
+                />
+            <RadioButton
+                android:id="@+id/femaleRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="Female"
+                android:textSize="16dp"/>
 
-            </RadioGroup>
+        </RadioGroup>
 
 
 
