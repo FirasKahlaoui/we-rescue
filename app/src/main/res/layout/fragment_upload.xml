@@ -54,11 +54,12 @@
                 android:layout_marginStart="120dp" />
 
             <ImageView
+                android:id="@+id/female_gender_img"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="150dp"
                 android:layout_marginEnd="30dp"
-                android:src="@drawable/female_icon"/>
+                android:src="@drawable/female_icon" />
         </RelativeLayout>
         <ProgressBar
             android:id="@+id/uploadProgressBar"
