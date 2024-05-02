@@ -38,6 +38,7 @@ import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Toast;
 import android.util.Log;
@@ -227,6 +228,10 @@ private void uploadToFirebase(Uri uri){
     String path = System.currentTimeMillis() + "." + getFileExtension(uri);
     final StorageReference imageReference = storageReference.child(path);
 
+    // Get a reference to the ProgressBar
+    ProgressBar uploadProgressBar = getView().findViewById(R.id.uploadProgressBar);
+    uploadProgressBar.setVisibility(View.VISIBLE);
+
     imageReference.putFile(uri)
         .addOnSuccessListener(taskSnapshot -> {
             imageReference.getDownloadUrl().addOnSuccessListener(downloadUri -> {
@@ -243,11 +248,17 @@ private void uploadToFirebase(Uri uri){
 
                 // Insert data into local SQLite database
                 insertIntoDatabase(key, name, description, gender, species, birthdayStr, location, weight, imageUrl, ownerEmail);
+
+                // Hide the ProgressBar
+                uploadProgressBar.setVisibility(View.INVISIBLE);
             });
         })
         .addOnFailureListener(e -> {
             Log.e("Upload Error", e.getMessage(), e);
             Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
+
+            // Hide the ProgressBar
+            uploadProgressBar.setVisibility(View.INVISIBLE);
         });
 }
 
