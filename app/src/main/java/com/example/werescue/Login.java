@@ -116,37 +116,53 @@ public class Login extends Activity {
         });
 
         loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = emailET.getText().toString();
-                String password = passwordET.getText().toString();
+    @Override
+    public void onClick(View v) {
+        String email = emailET.getText().toString();
+        String password = passwordET.getText().toString();
 
-                if (email.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(Login.this, "Please enter your email and password", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(Login.this, "Please enter your email and password", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-                mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            FirebaseUser user = mAuth.getCurrentUser();
 
-                                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                                    editor.putBoolean("isLoggedIn", true);
-                                    editor.apply();
+                            // Get the user's name and email
+                            String name = user.getDisplayName();
+                            String email = user.getEmail();
 
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    Intent intent = new Intent(Login.this, MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                } else {
-                                    Toast.makeText(Login.this, "Authentication failed", Toast.LENGTH_SHORT).show();
-                                }
+                            // If the name is null, use the first part of the email as the name
+                            if (name == null && email != null) {
+                                name = email.split("@")[0];
                             }
-                        });
-            }
-        });
+
+                            // Save the name and email in shared preferences
+                            SharedPreferences sharedPreferences = Login.this.getSharedPreferences("login", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("name", name);
+                            editor.putString("email", email);
+                            editor.apply();
+
+                            SharedPreferences.Editor loginEditor = sharedPreferences.edit();
+                            loginEditor.putBoolean("isLoggedIn", true);
+                            loginEditor.apply();
+
+                            Intent intent = new Intent(Login.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Toast.makeText(Login.this, "Authentication failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+});
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
     .requestIdToken(getString(R.string.default_web_client_id)) // Add this line
     .requestEmail()
@@ -211,7 +227,7 @@ googleLogin.setOnClickListener(new View.OnClickListener() {
                             }
 
                             // Save the name and email in shared preferences
-                            SharedPreferences sharedPreferences = Login.this.getSharedPreferences("user_info", Context.MODE_PRIVATE);
+                            SharedPreferences sharedPreferences = Login.this.getSharedPreferences("login", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString("name", name);
                             editor.putString("email", email);

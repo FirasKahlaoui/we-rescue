@@ -1,5 +1,7 @@
 package com.example.werescue;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.Manifest;
@@ -22,12 +24,17 @@ import java.util.List;
 public class PetsFragment extends Fragment {
 
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
+    SharedPreferences sharedPreferences;
+    String loggedInUserEmail;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_pets, container, false);
+
+        sharedPreferences = getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
+        loggedInUserEmail = sharedPreferences.getString("email", "");
 
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
             != PackageManager.PERMISSION_GRANTED) {
@@ -46,26 +53,30 @@ public class PetsFragment extends Fragment {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         String[] projection = {
-                "id",
-                "name",
-                "description",
-                "gender",
-                "species",
-                "birthday",
-                "location",
-                "weight",
-                "imagePath"
-        };
+    "id",
+    "name",
+    "description",
+    "gender",
+    "species",
+    "birthday",
+    "location",
+    "weight",
+    "imagePath",
+    "email" // Include the email in the projection
+};
 
-        Cursor cursor = db.query(
-                "Pets",
-                projection,
-                null,
-                null,
-                null,
-                null,
-                null
-        );
+String selection = "email = ?";
+String[] selectionArgs = { loggedInUserEmail };
+
+Cursor cursor = db.query(
+    "Pets",
+    projection,
+    selection,
+    selectionArgs,
+    null,
+    null,
+    null
+);
 
         List<DataClass> petList = new ArrayList<>();
         while (cursor.moveToNext()) {

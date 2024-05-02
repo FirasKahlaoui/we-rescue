@@ -241,7 +241,7 @@ private void uploadToFirebase(Uri uri){
                 ((MainActivity)getActivity()).replaceFragment(new HomeFragment());
 
                 // Insert data into local SQLite database
-                insertIntoDatabase(key, name, description, gender, species, birthdayStr, location, weight, localFilePath);
+                insertIntoDatabase(key, name, description, gender, species, birthdayStr, location, weight, localFilePath, ownerEmail);
             });
         })
         .addOnFailureListener(e -> {
@@ -250,7 +250,7 @@ private void uploadToFirebase(Uri uri){
         });
 }
 
-private void insertIntoDatabase(String id, String name, String description, String gender, String species, String birthdayStr, String location, int weight, String localFilePath) {
+private void insertIntoDatabase(String id, String name, String description, String gender, String species, String birthdayStr, String location, int weight, String localFilePath, String ownerEmail) {
     // Get a writable database
     PetDatabaseHelper dbHelper = new PetDatabaseHelper(getActivity());
     SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -276,11 +276,15 @@ private void insertIntoDatabase(String id, String name, String description, Stri
     values.put("location", location);
     values.put("weight", weight);
     values.put("imagePath", localFilePath);
+    values.put("email", ownerEmail); // Add the email to the ContentValues
 
     // Insert the new row, returning the primary key value of the new row
     long newRowId = db.insert("Pets", null, values);
     if (newRowId == -1) {
         Log.e("SQLite Error", "Failed to insert data");
+    }
+    else {
+        Log.i("SQLite Info","Inserted Data :" + values.toString());
     }
 }
 
