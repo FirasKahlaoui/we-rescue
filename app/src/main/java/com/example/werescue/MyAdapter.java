@@ -65,7 +65,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 DataClass data = snapshot.getValue(DataClass.class);
                 dataList.add(data);
             }
-            originalDataList = new ArrayList<>(dataList); // Update the originalDataList
+            originalDataList = new ArrayList<>(dataList);
             notifyDataSetChanged();
         }
 

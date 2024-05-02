@@ -53,30 +53,30 @@ public class PetsFragment extends Fragment {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         String[] projection = {
-    "id",
-    "name",
-    "description",
-    "gender",
-    "species",
-    "birthday",
-    "location",
-    "weight",
-    "imagePath",
-    "email" // Include the email in the projection
-};
+            "id",
+            "name",
+            "description",
+            "gender",
+            "species",
+            "birthday",
+            "location",
+            "weight",
+            "imagePath",
+            "email" // Include the email in the projection
+        };
 
-String selection = "email = ?";
-String[] selectionArgs = { loggedInUserEmail };
+        String selection = "email = ?";
+        String[] selectionArgs = { loggedInUserEmail };
 
-Cursor cursor = db.query(
-    "Pets",
-    projection,
-    selection,
-    selectionArgs,
-    null,
-    null,
-    null
-);
+        Cursor cursor = db.query(
+            "Pets",
+            projection,
+            selection,
+            selectionArgs,
+            null,
+            null,
+            null
+        );
 
         List<DataClass> petList = new ArrayList<>();
         while (cursor.moveToNext()) {

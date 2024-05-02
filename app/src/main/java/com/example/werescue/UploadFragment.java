@@ -223,17 +223,18 @@ private void uploadToFirebase(Uri uri){
     String ownerName = sharedPreferences.getString("name", "");
     String ownerEmail = sharedPreferences.getString("email", "");
 
-    // Convert the Uri to a local file path
-    String localFilePath = getRealPathFromURI(getActivity(), uri);
+    // Generate a unique path for the image
     String path = System.currentTimeMillis() + "." + getFileExtension(uri);
     final StorageReference imageReference = storageReference.child(path);
-    Log.d("Upload Path", "Image will be uploaded to: " + path);
 
     imageReference.putFile(uri)
         .addOnSuccessListener(taskSnapshot -> {
-            imageReference.getDownloadUrl().addOnSuccessListener(urri -> {
+            imageReference.getDownloadUrl().addOnSuccessListener(downloadUri -> {
+                // Use the download URL of the image instead of the local file path
+                String imageUrl = downloadUri.toString();
+
                 // Add the additional fields to the DataClass object
-                DataClass dataClass = new DataClass(uri.toString(), name, description, gender, species, birthdayStr, location, weightStr, ownerName, ownerEmail);
+                DataClass dataClass = new DataClass(imageUrl, name, description, gender, species, birthdayStr, location, weightStr, ownerName, ownerEmail);
                 String key = databaseReference.push().getKey();
                 databaseReference.child(key).setValue(dataClass)
                         .addOnFailureListener(e -> Log.e("Database Error", e.getMessage(), e));
@@ -241,7 +242,7 @@ private void uploadToFirebase(Uri uri){
                 ((MainActivity)getActivity()).replaceFragment(new HomeFragment());
 
                 // Insert data into local SQLite database
-                insertIntoDatabase(key, name, description, gender, species, birthdayStr, location, weight, localFilePath, ownerEmail);
+                insertIntoDatabase(key, name, description, gender, species, birthdayStr, location, weight, imageUrl, ownerEmail);
             });
         })
         .addOnFailureListener(e -> {
