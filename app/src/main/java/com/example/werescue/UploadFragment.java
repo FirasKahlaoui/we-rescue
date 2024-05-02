@@ -219,7 +219,7 @@ private void uploadToFirebase(Uri uri){
     int weight = Integer.parseInt(weightStr);
 
     // Get the owner's name and email from shared preferences
-    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user_info", Context.MODE_PRIVATE);
+    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
     String ownerName = sharedPreferences.getString("name", "");
     String ownerEmail = sharedPreferences.getString("email", "");
 
