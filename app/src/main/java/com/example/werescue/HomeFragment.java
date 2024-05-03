@@ -56,8 +56,8 @@ public class HomeFragment extends Fragment {
         ImageView profileImage = view.findViewById(R.id.home_profile_image);
         if (photoUrl != null) {
             Glide.with(this)
-                .load(photoUrl)
-                .into(profileImage);
+                    .load(photoUrl)
+                    .into(profileImage);
         }
 
         recyclerView = view.findViewById(R.id.recyclerView);
@@ -76,8 +76,9 @@ public class HomeFragment extends Fragment {
                 dataList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     DataClass dataClass = dataSnapshot.getValue(DataClass.class);
-                    dataList.add(dataClass);
+                    dataList.add(0,dataClass);
                 }
+                adapter.setDataList(dataList);
                 adapter.notifyDataSetChanged();
             }
 

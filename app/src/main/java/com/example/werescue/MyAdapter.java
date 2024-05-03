@@ -57,24 +57,24 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
 
     private void loadData() {
-    databaseReference.addValueEventListener(new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            dataList.clear();
-            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                DataClass data = snapshot.getValue(DataClass.class);
-                dataList.add(data);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                dataList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    DataClass data = snapshot.getValue(DataClass.class);
+                    dataList.add(data);
+                }
+                originalDataList = new ArrayList<>(dataList);
+                notifyDataSetChanged();
             }
-            originalDataList = new ArrayList<>(dataList);
-            notifyDataSetChanged();
-        }
 
-        @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) {
-            // Handle possible errors.
-        }
-    });
-}
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle possible errors.
+            }
+        });
+    }
 
     @NonNull
     @Override
@@ -146,9 +146,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     public void showAllItems() {
-    this.dataList = new ArrayList<>(this.originalDataList);
-    notifyDataSetChanged();
-}
-
+        this.dataList = new ArrayList<>(this.originalDataList);
+        notifyDataSetChanged();
+    }
+    public void setDataList(ArrayList<DataClass> dataList) {
+        this.dataList = dataList;
+    }
 
 }
